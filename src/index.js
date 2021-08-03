@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react'
+import React, {Component, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 // import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,14 +27,68 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
+import Overlay from 'react-bootstrap/Overlay';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
+const AppRouter = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path='/' render={(props) => <App {...props} />} />
+      <Route path='/data=:data' render={(props) => <App {...props} />} />
+    </Switch>
+  </BrowserRouter>
+);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    const { data } = props.match.params;
+    if (data != null) {
+      this.state = JSON.parse(data);
+    } else {
+      // default
+      this.state = {
+        points: [1,2,3],
+        maxpts: 50,
+        roof: 50,
+        base: 25,
+        showerror: false,
+      };
+    }
+  }
+
+  calculateGrade = (pts) => {
+    const grades = [1.0,1.3,1.7,2.0,2.3,2.7,3.0,3.3,3.7,4.0,5.0]
+    const diff = parseFloat(this.state.roof) - parseFloat(this.state.base)
+    const ranges = [0].concat(
+      [...Array(10).keys()].map(x => parseFloat(this.state.base) + 0.1*(x)*diff)
+    )
+    // alert(ranges)
+    console.log(pts)
+    console.log(ranges)
+    for (var i = 0; i<ranges.length; i++) {
+      if (pts >= ranges[ranges.length-i-1]) {
+        return grades[i]
+      }
+    }
+    return "error"
+  }
+
+  handleCallback = (childData) =>{
+    let tmpData = this.state
+    tmpData["points"] = childData
+    this.setState({data: {tmpData}})
+  }
+
   render() {
     return (
-      <BrowserRouter basename="/calendar">
+      <BrowserRouter>
+        <Header />
         <div>
           <div>
-            <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">Grade Schemer <Badge bg="primary">v1</Badge></h1>
             <h4 className="m-2">Settings & Input</h4>
             <Container>
               <Row>
@@ -42,121 +96,152 @@ class App extends Component {
                 <Container>
                 <Row>
                   <InputGroup className="mb-1 p-0">
-                    <InputGroup.Text id="basic-addon1">Max. points</InputGroup.Text>
-                    <FormControl placeholder="50"/>
+                    <InputGroup.Text id="basic-addon1">💯 Max. points</InputGroup.Text>
+                    <FormControl
+                      placeholder={this.state.maxpts}
+                      onChange={event => {
+                        this.setState({maxpts : event.target.value});
+                      }}
+                    />
                   </InputGroup>
                   <InputGroup className="mb-1 p-0">
-                    <InputGroup.Text id="basic-addon1">Top</InputGroup.Text>
-                    <FormControl placeholder="50"/>
-                    <Form.Range placeholder="10" />
+                    <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
+                    <FormControl
+                      placeholder={this.state.roof}
+                      onChange={event => {
+                        this.setState({roof : event.target.value});
+                      }}
+                    />
                   </InputGroup>
                   <InputGroup className="mb-1 p-0">
-                    <InputGroup.Text id="basic-addon1">Roof</InputGroup.Text>
-                    <FormControl placeholder="50"/>
-                    <Form.Range />
+                    <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
+                    <FormControl
+                      placeholder={this.state.base}
+                      onChange={event => {
+                        this.setState({base : event.target.value});
+                      }}
+                    />
                   </InputGroup>
                 </Row>
                 </Container>
+                <div className="text-center">
+                  <Button className="m-1" variant="danger" onClick={() => {window.location.href = "/"}}>
+                    Reset
+                  </Button>
+                  <CopyButtonWithOverlay copyUrl={window.location.host + '/data=' + JSON.stringify(this.state)}/>
+                </div>
                 </Col>
                 <Col>
                   <InputGroup className="mb-3">
                     <InputGroup.Text>Input</InputGroup.Text>
-                    <FormControl as="textarea" placeholder="1 2 3.5 15 30 50.0" aria-label="With textarea" />
+                    <FormControl
+                      as="textarea" rows="7" placeholder={this.state.points}
+                      onChange={event => {
+                        this.handlePointsInput(event.target.value)
+                      }}
+                    />
                   </InputGroup>
                 </Col>
               </Row>
-              <Row>
-                <div className="text-center">
-                  <Button className="mb-1 w-25" variant="primary">Update</Button>{' '}
-                  <Button className="mb-1 w-25" variant="danger">Reset</Button>{' '}
-                </div>
-              </Row>
           </Container>
-          <Alert className="m-2" key="warn" variant="danger">
-            Please check input!
-          </Alert>
-          <h4 className="m-2">Results</h4>
-      </div>
-      {/* <Alert bsStyle="warning" className="error-container">
-        <div className="error-msg">Test</div>
-      </Alert>
-      <Badge bg="primary">Primary</Badge>
-      <Button variant="primary">
-        Profile <Badge bg="secondary">9</Badge>
-        <span className="visually-hidden">unread messages</span>
-      </Button>
-        <Link to="/today"/>
-        <h1>Hellso, Reactssssssssss! </h1>
-          <Route path="/pts=:pts" children={<Child />} />
-        <Alert key="ag" variant="danger">
-          This is a  alert—check it out!
-        </Alert>
-        <Button variant="flat" size="xxl">
-          flat button
-        </Button>
-        <ButtonGroup aria-label="Basic example">
-          <Button variant="secondary">Left</Button>
-          <Button variant="secondary">Middle</Button>
-          <Button variant="secondary">Right</Button>
-        </ButtonGroup>
-        <Container>
-          <Row>
-            <Col>
-            <Alert variant="success">
-              <Alert.Heading>Hey, nice to see you</Alert.Heading>
+          {
+          this.state.showerror
+          ?
+          <div className="text-center d-flex justify-content-center">
+            <Alert className="m-2 w-50" key="warn" variant="danger">
+              <Alert.Heading>🚨 Error in input field.</Alert.Heading>
               <p>
-                Aww yeah, you successfully read this important alert message. This example
-                text is going to run a bit longer so that you can see how spacing within an
-                alert works with this kind of content.
+                <ul className="text-start">
+                  <li>Only numeric values are allowed.</li>
+                  <li>The list separator must be a whitespace, newline or a comma.</li>
+                </ul>
               </p>
               <hr />
               <p className="mb-0">
-                Whenever you need to, be sure to use margin utilities to keep things nice
-                and tidy.
+                ➡️ If you don't know how to fix it, reset the whole app and start again.
               </p>
             </Alert>
-            </Col>
-            <Col>2 of 2</Col>
-          </Row>
-          <Row>
-            <Col>1 of 3</Col>
-            <Col>2 of 3</Col>
-            <Col>3 of 3</Col>
-          </Row>
-        </Container>
-        <Example /> */}
+          </div>
+          :
+          ''
+          }
+          <h4 className="m-2">Results</h4>
+          <DataTable points={this.state.points} gradeFunction={this.calculateGrade}/>
       </div>
+      </div>
+      <Footer />
       </BrowserRouter>
     )
   }
+
+  handlePointsInput(inputString) {
+    inputString = inputString.replaceAll(',', ' ')
+    const pts = inputString.split(/\s+/)
+    if (pts.some(isNaN)) {
+      this.setState({showerror: true})
+    } else {
+      this.setState({showerror: false})
+      this.setState({points: pts})
+    }
+  }
+
+  renderCopyMessage = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Simple tooltip
+    </Tooltip>
+  );
 }
 
-function Example() {
-  const [open, setOpen] = useState(false);
+function CopyButtonWithOverlay(props) {
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
 
   return (
     <>
-      <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-fade-text"
-        aria-expanded={open}
-      >
-        Toggle text
+      <Button className="m-1 w-50" variant="primary" ref={target} onClick={() => {
+        navigator.clipboard.writeText(props.copyUrl)
+        setShow(true)
+        setTimeout( () => {setShow(false); }, 2000);
+      }
+      }>
+        Copy link
       </Button>
-      <Fade in={open}>
-        <div id="example-fade-text">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-          labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-      </Fade>
+      <Overlay target={target.current} show={show} placement="right">
+        {(props) => (
+          <Tooltip id="overlay-example" {...props}>
+            ✉️ Copied link into clipboard!
+          </Tooltip>
+        )}
+      </Overlay>
     </>
   );
 }
 
-const SomeComponent = () => (
-  <Route path="/" render={(props) => <ButtonToNavigate {...props} title="Update" />} />
-)
+class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">
+        ✍️ Grade Schemer <Badge bg="primary">v1</Badge>
+      </h1>
+    )
+  }
+}
+
+class Footer extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="text-center border-top">
+        <p>Made by Lambert Theisen. 2021.</p>
+      </div>
+    )
+  }
+}
 
 const ButtonToNavigate = ({ title, history }) => (
   <Button
@@ -168,87 +253,34 @@ const ButtonToNavigate = ({ title, history }) => (
   </Button>
 );
 
-class Textareademo extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      textAreaValue: "asgsag"
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ textAreaValue: event.target.value });
+class DataTable extends Component {
+  constructor(props) {
+    super(props);
   }
 
   render() {
+    const points = this.props.points;
+    const grades = this.props.points;
+    const tableBody = points.map(
+      (e, i) => <tr><td>{i}</td><td>{e}</td><td>{this.props.gradeFunction(grades[i])}</td></tr>
+    )
     return (
       <div>
-        <label>Points </label>
-        <br></br>
-        <textarea
-          value={this.state.textAreaValue}
-          onChange={this.handleChange}
-        />
-        <br></br>
-        <SomeComponent />
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Points</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableBody}
+          </tbody>
+        </Table>
       </div>
     );
   }
 }
 
-// function PointsList(props) {
-//   return (
-//     <div>
-//       {props.items.map((item, index) => (
-//         <Item key={index} item={item} />
-//       ))}
-//     </div>
-//   );
-// }
-
-
-
-function Child() {
-  // We can use the `useParams` hook here to access
-  // the dynamic pieces of the URL.
-  let { pts } = useParams();
-  const points = JSON.parse(pts);
-  console.log(points)
-  const listItems = points.map((number) =>  <li key={number}>{number}</li>);
-
-  return (
-    <div>
-      <h3>Pts: {pts}</h3>
-      <ul>{listItems}</ul>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Points</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan="2">Larry the Bird</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<AppRouter />, document.getElementById('root'))
