@@ -423,7 +423,7 @@ function CopyButtonWithOverlay(props) {
   return (
     <>
       <Button className="m-1 btn-sm" variant="primary" ref={target} onClick={() => {
-        navigator.clipboard.writeText(props.copyUrl)
+        navigator.clipboard.writeText(encodeURI(props.copyUrl))
         setShow(true)
         setTimeout(() => { setShow(false); }, 2000);
       }
