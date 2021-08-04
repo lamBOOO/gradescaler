@@ -1,16 +1,11 @@
 import React, {Component, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
-// import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Link,
-  Route,
   BrowserRouter,
-  Redirect,
-  useParams
+  Switch,
+  Route,
 } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
@@ -18,19 +13,12 @@ import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Collapse from 'react-bootstrap/Collapse';
-import Fade from 'react-bootstrap/Fade';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Table from 'react-bootstrap/Table';
-import Badge from 'react-bootstrap/Badge';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import Form from 'react-bootstrap/Form';
 import Overlay from 'react-bootstrap/Overlay';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Badge from 'react-bootstrap/Badge';
+import Table from 'react-bootstrap/Table';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -44,7 +32,6 @@ const AppRouter = () => (
 class App extends Component {
   constructor(props) {
     super(props);
-
     const { data } = props.match.params;
     if (data != null) {
       this.state = JSON.parse(data);
@@ -66,7 +53,6 @@ class App extends Component {
     const ranges = [0].concat(
       [...Array(10).keys()].map(x => parseFloat(this.state.base) + 0.1*(x)*diff)
     )
-    // alert(ranges)
     console.log(pts)
     console.log(ranges)
     for (var i = 0; i<ranges.length; i++) {
@@ -218,9 +204,6 @@ function CopyButtonWithOverlay(props) {
 }
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">
@@ -231,9 +214,6 @@ class Header extends Component {
 }
 
 class Footer extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="text-center border-top">
@@ -243,21 +223,7 @@ class Footer extends Component {
   }
 }
 
-const ButtonToNavigate = ({ title, history }) => (
-  <Button
-    type="button"
-    variant="danger"
-    onClick={() => history.push('/my-new-location')}
-  >
-    {title}
-  </Button>
-);
-
 class DataTable extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const points = this.props.points;
     const grades = this.props.points;
