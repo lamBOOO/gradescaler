@@ -274,7 +274,7 @@ class App extends Component {
           <div className="m-3">
             <h5 className="fw-bold m-2 text-center">About</h5>
             <div>
-              Grade Schemer calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Schemer transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
+              Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
             </div>
           </div>
         </div>
@@ -446,7 +446,7 @@ class Header extends Component {
     return (
       <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">
         {/* <img style={{ height: '24px' }} src="favicon.ico" alt="Logo" /> */}
-        ✍️  Grade Schemer <Badge bg="primary">v1</Badge>
+        ✍️  Grade Scaler <Badge bg="primary">v1</Badge>
       </h1>
     )
   }
