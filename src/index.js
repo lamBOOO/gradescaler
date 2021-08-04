@@ -115,7 +115,7 @@ class App extends Component {
                 </Row>
                 </Container>
                 <div className="text-center">
-                  <Button className="m-1" variant="danger" onClick={() => {window.location.href = "/"}}>
+                  <Button className="btn-sm m-1" variant="danger" onClick={() => {window.location.href = "/"}}>
                     Reset
                   </Button>
                   <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)}/>
@@ -125,7 +125,7 @@ class App extends Component {
                   <InputGroup className="mb-3">
                     <InputGroup.Text>Input</InputGroup.Text>
                     <FormControl
-                      as="textarea" rows="5" placeholder={this.state.input.points}
+                      as="textarea" rows="4" placeholder={this.state.input.points}
                       onChange={event => {
                         this.handlePointsInput(event.target.value)
                       }}
@@ -243,7 +243,7 @@ function CopyButtonWithOverlay(props) {
 
   return (
     <>
-      <Button className="m-1 w-50" variant="primary" ref={target} onClick={() => {
+      <Button className="m-1 btn-sm w-50" variant="primary" ref={target} onClick={() => {
         navigator.clipboard.writeText(props.copyUrl)
         setShow(true)
         setTimeout( () => {setShow(false); }, 2000);
