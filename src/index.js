@@ -205,9 +205,9 @@ class App extends Component {
                   <Table striped bordered hover>
                     <thead>
                       <tr>
-                        <th>Average</th>
-                        <th>Failing Rate</th>
-                        <th>Percentage to pass</th>
+                        <th>📊 Average</th>
+                        <th>😰 Failing Rate</th>
+                        <th>🥳 Percentage to pass</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -368,7 +368,7 @@ function CopyButtonWithOverlay(props) {
 
   return (
     <>
-      <Button className="m-1 btn-sm w-50" variant="primary" ref={target} onClick={() => {
+      <Button className="m-1 btn-sm" variant="primary" ref={target} onClick={() => {
         navigator.clipboard.writeText(props.copyUrl)
         setShow(true)
         setTimeout(() => { setShow(false); }, 2000);
