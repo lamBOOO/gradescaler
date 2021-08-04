@@ -44,8 +44,11 @@ class App extends Component {
     if (input != null) {
       this.state = {
         input: JSON.parse(input),
-        data: defaultData
+        data: {
+          showerror: false
+        }
       }
+      this.data = defaultData
     } else {
       // default
       this.state = {
@@ -56,49 +59,75 @@ class App extends Component {
           base: 25,
           roundingMultiplier: 0.5,
         },
-        data: defaultData
+        data: {
+          showerror: false
+        }
       };
+      this.data = defaultData
     }
   }
 
   calculateGrade = (pts) => {
-    const grades = this.state.data.gradeScheme
-    const ranges = this.state.data.gradeRanges
-    for (var i = 0; i < ranges.length; i++) {
-      if (pts >= ranges[ranges.length - i - 1]) {
-        return grades[i]
+    const grades = this.data.gradeScheme
+    const ranges = this.data.gradeRanges
+    if (grades != null) {
+      for (var i = 0; i < ranges.length; i++) {
+        if (pts >= ranges[ranges.length - i - 1]) {
+          return grades[i]
+        }
       }
     }
     return "error"
   }
 
+  roundm(x, multiple) {
+      return Math.round(x / multiple) * multiple;
+  }
+
   updateData() {
     // grade ranges
     const diff = parseFloat(this.state.input.roof) - parseFloat(this.state.input.base)
-    const gradeRanges = [0].concat(
+    const gradeRangesExact = [0].concat(
       [...Array(10).keys()].map(x => parseFloat(this.state.input.base) + 0.1 * (x) * diff)
     )
-    this.state.data.gradeRanges = gradeRanges;
+    const gradeRanges = gradeRangesExact.map(
+      x => this.roundm(x, this.state.input.roundingMultiplier)
+    )
+    this.data.gradeRanges = gradeRanges;
 
     // grade frequcencies
     const gradeDict = this.state.input.points.map(pts => this.calculateGrade(pts))
     const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
-    const gradeFrequency = this.state.data.gradeScheme.map(gr => countOccurrences(gradeDict, gr))
-    this.state.data.gradeFrequency = gradeFrequency;
-    console.log(gradeFrequency)
+    const gradeFrequency = this.data.gradeScheme.map(gr => countOccurrences(gradeDict, gr))
+    this.data.gradeFrequency = gradeFrequency;
 
     // average
-    const weightedSumArray = this.state.data.gradeFrequency.map(
-      (e,i) => this.state.data.gradeScheme[i] * e
+    const weightedSumArray = this.data.gradeFrequency.map(
+      (e,i) => this.data.gradeScheme[i] * e
     );
-    const numParticipants = this.state.data.gradeFrequency.reduce((a, b) => a + b, 0)
+    const numParticipants = this.data.gradeFrequency.reduce((a, b) => a + b, 0)
     const weightedSum = weightedSumArray.reduce((a, b) => a + b, 0)
     const average = weightedSum / numParticipants;
-    this.state.data.average = average.toPrecision(3);
+    this.data.average = average.toPrecision(3);
+  }
+
+  validateInput() {
+    return (
+      !isNaN(parseFloat(this.state.input.maxpts)) &&
+      !isNaN(parseFloat(this.state.input.roof)) &&
+      !isNaN(parseFloat(this.state.input.base)) &&
+      !isNaN(parseFloat(this.state.input.roundingMultiplier)) &&
+      true
+    )
   }
 
   render() {
-    this.updateData()
+    if (
+      !this.state.data.showerror &&
+      this.validateInput()
+    ) {
+      this.updateData()
+    }
     return (
       <BrowserRouter>
         <Header />
@@ -180,13 +209,13 @@ class App extends Component {
                 <div className="text-center d-flex justify-content-center">
                   <Alert className="m-2" key="warn" variant="danger">
                     <Alert.Heading>🚨 Error in input field.</Alert.Heading>
-                    <p>
+                    {/* <p> */}
                       <ul className="text-start">
                         <li>Only numeric values are allowed.</li>
                         <li>Decimal separator can be point or comma.</li>
                         <li>The list separator must be any whitespace or a newline.</li>
                       </ul>
-                    </p>
+                    {/* </p> */}
                     <hr />
                     <p className="mb-0">
                       ➡️ If you don't know how to fix it, reset the whole app and start again.
@@ -205,12 +234,12 @@ class App extends Component {
                   <h6 className="text-center">Graphical data</h6>
                   <i className="bi bi-cart-fill"></i>
                   <GradeFreqBarChart
-                    labels={this.state.data.gradeScheme}
-                    data={this.state.data.gradeFrequency}
+                    labels={this.data.gradeScheme}
+                    data={this.data.gradeFrequency}
                   />
                   <GradeRangesLineChart
-                    gradeRange={this.state.data.gradeRanges}
-                    gradeScheme={this.state.data.gradeScheme}
+                    gradeRange={this.data.gradeRanges}
+                    gradeScheme={this.data.gradeScheme}
                     maxpts={this.state.input.maxpts}
                   />
                 </Col>
@@ -219,6 +248,7 @@ class App extends Component {
                   <Table striped bordered hover>
                     <thead>
                       <tr>
+                        <th>👩‍👩‍👦‍👦 Num</th>
                         <th>📊 Average</th>
                         <th>😰 Failing Rate</th>
                         <th>🥳 Percentage to pass</th>
@@ -226,16 +256,17 @@ class App extends Component {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{this.state.data.average}</td>
+                        <td>{this.data.gradeFrequency.reduce((a, b) => a + b, 0)}</td>
+                        <td>{this.data.average}</td>
                         <td>{
-                          Math.round(100*this.state.data.gradeFrequency[this.state.data.gradeFrequency.length-1] / this.state.data.gradeFrequency.reduce((a, b) => a + b, 0))
+                          (100*this.data.gradeFrequency[this.data.gradeFrequency.length-1] / this.data.gradeFrequency.reduce((a, b) => a + b, 0)).toPrecision(3)
                         } %</td>
-                        <td>{Math.round(100*this.state.data.gradeRanges[1]/this.state.input.maxpts)} %</td>
+                        <td>{(100*this.data.gradeRanges[1]/this.state.input.maxpts).toPrecision(3)} %</td>
                       </tr>
                     </tbody>
                   </Table>
                   <h6 className="text-center">Tabular data</h6>
-                  <DataTable gradeScheme={this.state.data.gradeScheme} gradeRanges={this.state.data.gradeRanges} gradeFrequencies={this.state.data.gradeFrequency} />
+                  <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} />
                 </Col>
               </Row>
             </Container>
@@ -336,7 +367,7 @@ class GradeRangesLineChart extends React.Component {
         return ({ "x": e, "y": this.props.gradeScheme[this.props.gradeScheme.length - 1 - i] });
       }
     ).concat({ "x": this.props.maxpts, "y": 1 })
-    console.log(plotData)
+    // console.log(plotData)
     const data = {
       datasets: [
         {
@@ -487,7 +518,7 @@ class DataTable extends Component {
         <td key={i+2}>{gradeRanges[gradeRanges.length-1-i]}</td>
         <td key={i+3}>{gradeRanges[gradeRanges.length-i]}</td>
         <td key={i+4}>{gradeFrequencies[i]}</td>
-        <td key={i+5}>{Math.round(100 * gradeFrequencies[i] / totalParticipants)} %</td>
+        <td key={i+5}>{(100 * gradeFrequencies[i] / totalParticipants).toPrecision(3)} %</td>
       </tr>
     )
     return (
