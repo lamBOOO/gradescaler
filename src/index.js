@@ -481,23 +481,23 @@ class DataTable extends Component {
     const gradeFrequencies = this.props.gradeFrequencies;
     const totalParticipants = gradeFrequencies.reduce((a, b) => a + b, 0)
     const tableBody = gradeScheme.map(
-      (e, i) => <tr>
-        <td>{e}</td>
-        <td>{gradeRanges[gradeRanges.length-1-i]}</td>
-        <td>{gradeRanges[gradeRanges.length-i]}</td>
-        <td>{gradeFrequencies[i]}</td>
-        <td>{Math.round(100 * gradeFrequencies[i] / totalParticipants)} %</td>
+      (e, i) => <tr key={i}>
+        <td key={i+1}>{e}</td>
+        <td key={i+2}>{gradeRanges[gradeRanges.length-1-i]}</td>
+        <td key={i+3}>{gradeRanges[gradeRanges.length-i]}</td>
+        <td key={i+4}>{gradeFrequencies[i]}</td>
+        <td key={i+5}>{Math.round(100 * gradeFrequencies[i] / totalParticipants)} %</td>
       </tr>
     )
     return (
       <div>
         <Table striped bordered hover>
           <thead>
-            <tr>
-              <th>Grade</th>
-              <th>≥</th>
-              <th>&lt;</th>
-              <th colSpan="2">Frequency</th>
+            <tr key="a">
+              <th key="1">Grade</th>
+              <th key="2">≥</th>
+              <th key="3">&lt;</th>
+              <th key="4" colSpan="2">Frequency</th>
             </tr>
           </thead>
           <tbody>
