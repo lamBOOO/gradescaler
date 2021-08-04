@@ -285,7 +285,7 @@ class App extends Component {
             <Col sm={3} md={2} lg={2}>
               <h5 className="fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h5>
               <AmazonLink
-                link="https://amzn.to/2Vh8rxO"
+                link="https://www.amazon.de/dp/B01HDNUXBW?&linkCode=ll1&tag=gradescaler-21&linkId=9a7ff66540ed90e55e70bd7448a90778&language=de_DE&ref_=as_li_ss_tl"
                 imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDNUXBW&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE"
                 title="Hagomoro Chalk"
                 bullets={[
@@ -294,7 +294,7 @@ class App extends Component {
                 ]}
               />
               <AmazonLink
-                link="https://amzn.to/37jTwoL"
+                link="https://www.amazon.de/How-Write-Lot-Practical-Productive/dp/1591477433?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=how+to+write+a+lot&qid=1628119204&sr=8-4&linkCode=ll1&tag=gradescaler-21&linkId=37040218eabc21613164d85302938e0e&language=de_DE&ref_=as_li_ss_tl"
                 imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1591477433&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
                 title="How to Write a Lot: A Practical Guide to Productive Academic Writing"
                 bullets={[
@@ -302,7 +302,7 @@ class App extends Component {
                 ]}
               />
               <AmazonLink
-                link="https://amzn.to/3jreXd4"
+                link="https://www.amazon.de/gp/product/B07L5GDTYY/ref=as_li_tl?ie=UTF8&tag=gradescaler-21&camp=1638&creative=6742&linkCode=as2&creativeASIN=B07L5GDTYY&linkId=4d7cb619629ee981e5d8900478a97050"
                 imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07L5GDTYY&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
                 title="Kindle Oasis"
                 bullets={[
