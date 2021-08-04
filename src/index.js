@@ -102,127 +102,132 @@ class App extends Component {
       <BrowserRouter>
         <Header />
         <div>
-          <h5 className="m-2 text-center">Settings & Input</h5>
-          <Container>
-            <Row>
-              <Col>
-                <Container>
-                  <Row>
-                    <InputGroup className="mb-1 p-0">
-                      <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
-                      <FormControl
-                        placeholder={this.state.input.maxpts}
-                        onChange={event => {
-                          this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
-                        }}
-                      />
-                    </InputGroup>
-                    <InputGroup className="mb-1 p-0">
-                      <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
-                      <FormControl
-                        placeholder={this.state.input.roof}
-                        onChange={event => {
-                          this.setState({ input: { ...this.state.input, roof: event.target.value } })
-                        }}
-                      />
-                    </InputGroup>
-                    <InputGroup className="mb-1 p-0">
-                      <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
-                      <FormControl
-                        placeholder={this.state.input.base}
-                        onChange={event => {
-                          this.setState({ input: { ...this.state.input, base: event.target.value } })
-                        }}
-                      />
-                    </InputGroup>
-                  </Row>
-                </Container>
-                <div className="text-center">
-                  <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
-                    Reset
-                  </Button>
-                  <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
+          <div className="">
+            <h5 className="fw-bold m-2 text-center">Settings & Input</h5>
+            <Container>
+              <Row>
+                <Col>
+                  <Container>
+                    <Row>
+                      <InputGroup className="mb-1 p-0">
+                        <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
+                        <FormControl
+                          placeholder={this.state.input.maxpts}
+                          onChange={event => {
+                            this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
+                          }}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-1 p-0">
+                        <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
+                        <FormControl
+                          placeholder={this.state.input.roof}
+                          onChange={event => {
+                            this.setState({ input: { ...this.state.input, roof: event.target.value } })
+                          }}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-1 p-0">
+                        <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
+                        <FormControl
+                          placeholder={this.state.input.base}
+                          onChange={event => {
+                            this.setState({ input: { ...this.state.input, base: event.target.value } })
+                          }}
+                        />
+                      </InputGroup>
+                    </Row>
+                  </Container>
+                  <div className="text-center">
+                    <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
+                      Reset
+                    </Button>
+                    <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
+                  </div>
+                </Col>
+                <Col>
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>Input</InputGroup.Text>
+                    <FormControl
+                      as="textarea"
+                      style={{ height: '150px' }}
+                      placeholder={this.state.input.points.join("\n")}
+                      onChange={event => {
+                        this.handlePointsInput(event.target.value)
+                      }}
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+            </Container>
+            {
+              this.state.data.showerror
+                ?
+                <div className="text-center d-flex justify-content-center">
+                  <Alert className="m-2" key="warn" variant="danger">
+                    <Alert.Heading>🚨 Error in input field.</Alert.Heading>
+                    <p>
+                      <ul className="text-start">
+                        <li>Only numeric values are allowed.</li>
+                        <li>Decimal separator can be point or comma.</li>
+                        <li>The list separator must be any whitespace or a newline.</li>
+                      </ul>
+                    </p>
+                    <hr />
+                    <p className="mb-0">
+                      ➡️ If you don't know how to fix it, reset the whole app and start again.
+                    </p>
+                  </Alert>
                 </div>
-              </Col>
-              <Col>
-                <InputGroup className="mb-3">
-                  <InputGroup.Text>Input</InputGroup.Text>
-                  <FormControl
-                    as="textarea"
-                    style={{ height: '150px' }}
-                    placeholder={this.state.input.points}
-                    onChange={event => {
-                      this.handlePointsInput(event.target.value)
-                    }}
+                :
+                ''
+            }
+          </div>
+          <div className="">
+            <h5 className="fw-bold m-2 text-center">Results</h5>
+            <Container>
+              <Row>
+                <Col>
+                  <h6 className="text-center">Graphical data</h6>
+                  <i className="bi bi-cart-fill"></i>
+                  <GradeFreqBarChart
+                    labels={this.state.data.gradeScheme}
+                    data={this.state.data.gradeFrequency}
                   />
-                </InputGroup>
-              </Col>
-            </Row>
-          </Container>
-          {
-            this.state.data.showerror
-              ?
-              <div className="text-center d-flex justify-content-center">
-                <Alert className="m-2 w-50" key="warn" variant="danger">
-                  <Alert.Heading>🚨 Error in input field.</Alert.Heading>
-                  <p>
-                    <ul className="text-start">
-                      <li>Only numeric values are allowed.</li>
-                      <li>The list separator must be a whitespace, newline or a comma.</li>
-                    </ul>
-                  </p>
-                  <hr />
-                  <p className="mb-0">
-                    ➡️ If you don't know how to fix it, reset the whole app and start again.
-                  </p>
-                </Alert>
-              </div>
-              :
-              ''
-          }
-          <h5 className="m-2 text-center">Results</h5>
-          <Container>
-            <Row>
-              <Col>
-                <h6 className="text-center">Graphical data</h6>
-                <i className="bi bi-cart-fill"></i>
-                <GradeFreqBarChart
-                  labels={this.state.data.gradeScheme}
-                  data={this.state.data.gradeFrequency}
-                />
-                <GradeRangesLineChart
-                  gradeRange={this.state.data.gradeRanges}
-                  gradeScheme={this.state.data.gradeScheme}
-                  maxpts={this.state.input.maxpts}
-                />
-              </Col>
-              <Col>
-                <h6 className="text-center">Indicators</h6>
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>Average</th>
-                      <th>Failing Rate</th>
-                      <th>Percentage to pass</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{this.state.data.average}</td>
-                      <td>{
-                        Math.round(100*this.state.data.gradeFrequency[this.state.data.gradeFrequency.length-1] / this.state.data.gradeFrequency.reduce((a, b) => a + b, 0))
-                      } %</td>
-                      <td>{Math.round(100*this.state.data.gradeRanges[1]/this.state.input.maxpts)} %</td>
-                    </tr>
-                  </tbody>
-                </Table>
-                <h6 className="text-center">Tabular data</h6>
-                <DataTable gradeScheme={this.state.data.gradeScheme} gradeRanges={this.state.data.gradeRanges} gradeFrequencies={this.state.data.gradeFrequency} />
-              </Col>
-            </Row>
-          </Container>
+                  <GradeRangesLineChart
+                    gradeRange={this.state.data.gradeRanges}
+                    gradeScheme={this.state.data.gradeScheme}
+                    maxpts={this.state.input.maxpts}
+                  />
+                </Col>
+                <Col>
+                  <h6 className="text-center">Indicators</h6>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>Average</th>
+                        <th>Failing Rate</th>
+                        <th>Percentage to pass</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{this.state.data.average}</td>
+                        <td>{
+                          Math.round(100*this.state.data.gradeFrequency[this.state.data.gradeFrequency.length-1] / this.state.data.gradeFrequency.reduce((a, b) => a + b, 0))
+                        } %</td>
+                        <td>{Math.round(100*this.state.data.gradeRanges[1]/this.state.input.maxpts)} %</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                  <h6 className="text-center">Tabular data</h6>
+                  <DataTable gradeScheme={this.state.data.gradeScheme} gradeRanges={this.state.data.gradeRanges} gradeFrequencies={this.state.data.gradeFrequency} />
+                </Col>
+              </Row>
+            </Container>
+          </div>
           <div className="m-3">
-            <h5 className="m-2 text-center">About</h5>
+            <h5 className="fw-bold m-2 text-center">About</h5>
             <div>
               Grade Schemer calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Schemer transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
             </div>
@@ -234,7 +239,7 @@ class App extends Component {
   }
 
   handlePointsInput(inputString) {
-    inputString = inputString.replaceAll(',', ' ')
+    inputString = inputString.replaceAll(',', '.')
     const pts = inputString.split(/\s+/)
     if (pts.some(isNaN)) {
       this.setState({ data: { ...this.state.data, showerror: true } })
@@ -417,7 +422,7 @@ function Example() {
   return (
     <div ref={ref}>
       <Button className="btn-sm" onClick={handleClick}>
-        🧑‍⚖️ Legal info
+        🧑‍⚖️ Legal info / Impressum
       </Button>
       <Overlay
         show={show}
@@ -457,6 +462,7 @@ class DataTable extends Component {
       (e, i) => <tr>
         <td>{e}</td>
         <td>{gradeRanges[gradeRanges.length-1-i]}</td>
+        <td>{gradeRanges[gradeRanges.length-i]}</td>
         <td>{gradeFrequencies[i]}</td>
         <td>{Math.round(100 * gradeFrequencies[i] / totalParticipants)} %</td>
       </tr>
@@ -467,7 +473,8 @@ class DataTable extends Component {
           <thead>
             <tr>
               <th>Grade</th>
-              <th>≥ Pts.</th>
+              <th>≥</th>
+              <th>&lt;</th>
               <th colSpan="2">Frequency</th>
             </tr>
           </thead>
