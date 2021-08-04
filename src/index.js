@@ -1,12 +1,11 @@
 import React, {Component, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import {
   BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
+import {Bar} from 'react-chartjs-2';
 
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -20,11 +19,12 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Badge from 'react-bootstrap/Badge';
 import Table from 'react-bootstrap/Table';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 const AppRouter = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path='/' render={(props) => <App {...props} />} />
-      <Route path='/data=:data' render={(props) => <App {...props} />} />
+      <Route path='/input=:input' render={(props) => <App {...props} />} />
     </Switch>
   </BrowserRouter>
 );
@@ -32,29 +32,38 @@ const AppRouter = () => (
 class App extends Component {
   constructor(props) {
     super(props);
-    const { data } = props.match.params;
-    if (data != null) {
-      this.state = JSON.parse(data);
+    const defaultData = {
+      showerror: false,
+      gradeScheme: [1.0,1.3,1.7,2.0,2.3,2.7,3.0,3.3,3.7,4.0,5.0],
+      gradeFrequency: null,
+    }
+    const { input } = props.match.params;
+    if (input != null) {
+      this.state = {
+        input: JSON.parse(input),
+        data: defaultData
+      }
     } else {
       // default
       this.state = {
-        points: [1,2,3],
-        maxpts: 50,
-        roof: 50,
-        base: 25,
-        showerror: false,
+        input: {
+          points: [0,1,2,13,23,12,15,27,35,37,37,37,40,40,40,40,32,30,25,40,50,49,46,35],
+          roof: 50,
+          base: 25,
+        },
+        data: defaultData
       };
     }
   }
 
   calculateGrade = (pts) => {
-    const grades = [1.0,1.3,1.7,2.0,2.3,2.7,3.0,3.3,3.7,4.0,5.0]
-    const diff = parseFloat(this.state.roof) - parseFloat(this.state.base)
+    const grades = this.state.data.gradeScheme
+    const diff = parseFloat(this.state.input.roof) - parseFloat(this.state.input.base)
     const ranges = [0].concat(
-      [...Array(10).keys()].map(x => parseFloat(this.state.base) + 0.1*(x)*diff)
+      [...Array(10).keys()].map(x => parseFloat(this.state.input.base) + 0.1*(x)*diff)
     )
-    console.log(pts)
-    console.log(ranges)
+    // console.log(pts)
+    // console.log(ranges)
     for (var i = 0; i<ranges.length; i++) {
       if (pts >= ranges[ranges.length-i-1]) {
         return grades[i]
@@ -63,48 +72,43 @@ class App extends Component {
     return "error"
   }
 
-  handleCallback = (childData) =>{
-    let tmpData = this.state
-    tmpData["points"] = childData
-    this.setState({data: {tmpData}})
+  updateData() {
+    // alert('hi')
+    const gradeDict = this.state.input.points.map(pts => this.calculateGrade(pts))
+    const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+    const gradeFrequency = this.state.data.gradeScheme.map(gr => countOccurrences(gradeDict, gr))
+    this.state.data.gradeFrequency = gradeFrequency;
+    console.log(gradeFrequency)
   }
 
   render() {
+    this.updateData()
     return (
       <BrowserRouter>
         <Header />
         <div>
           <div>
-            <h4 className="m-2">Settings & Input</h4>
+            <h5 className="m-2 text-center">Settings & Input</h5>
             <Container>
               <Row>
                 <Col>
                 <Container>
                 <Row>
                   <InputGroup className="mb-1 p-0">
-                    <InputGroup.Text id="basic-addon1">💯 Max. points</InputGroup.Text>
-                    <FormControl
-                      placeholder={this.state.maxpts}
-                      onChange={event => {
-                        this.setState({maxpts : event.target.value});
-                      }}
-                    />
-                  </InputGroup>
-                  <InputGroup className="mb-1 p-0">
                     <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
                     <FormControl
-                      placeholder={this.state.roof}
+                      placeholder={this.state.input.roof}
                       onChange={event => {
-                        this.setState({roof : event.target.value});
+                        this.setState({input: {...this.state.input, roof: event.target.value}})
                       }}
                     />
                   </InputGroup>
                   <InputGroup className="mb-1 p-0">
                     <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
                     <FormControl
-                      placeholder={this.state.base}
+                      placeholder={this.state.input.base}
                       onChange={event => {
-                        this.setState({base : event.target.value});
+                        this.setState({input: {...this.state.input, base: event.target.value}})
                       }}
                     />
                   </InputGroup>
@@ -114,14 +118,14 @@ class App extends Component {
                   <Button className="m-1" variant="danger" onClick={() => {window.location.href = "/"}}>
                     Reset
                   </Button>
-                  <CopyButtonWithOverlay copyUrl={window.location.host + '/data=' + JSON.stringify(this.state)}/>
+                  <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)}/>
                 </div>
                 </Col>
                 <Col>
                   <InputGroup className="mb-3">
                     <InputGroup.Text>Input</InputGroup.Text>
                     <FormControl
-                      as="textarea" rows="7" placeholder={this.state.points}
+                      as="textarea" rows="5" placeholder={this.state.input.points}
                       onChange={event => {
                         this.handlePointsInput(event.target.value)
                       }}
@@ -131,7 +135,7 @@ class App extends Component {
               </Row>
           </Container>
           {
-          this.state.showerror
+          this.state.data.showerror
           ?
           <div className="text-center d-flex justify-content-center">
             <Alert className="m-2 w-50" key="warn" variant="danger">
@@ -151,9 +155,23 @@ class App extends Component {
           :
           ''
           }
-          <h4 className="m-2">Results</h4>
-          <DataTable points={this.state.points} gradeFunction={this.calculateGrade}/>
-      </div>
+          <h5 className="m-2 text-center">Results</h5>
+          <Container>
+            <Row>
+              <Col>
+                <h6 className="text-center">Graphical data</h6>
+                <VerticalBar
+                  labels={this.state.data.gradeScheme}
+                  data={this.state.data.gradeFrequency}
+                />
+              </Col>
+              <Col>
+                <h6 className="text-center">Tabular data</h6>
+                <DataTable points={this.state.input.points} gradeFunction={this.calculateGrade}/>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </div>
       <Footer />
       </BrowserRouter>
@@ -164,10 +182,10 @@ class App extends Component {
     inputString = inputString.replaceAll(',', ' ')
     const pts = inputString.split(/\s+/)
     if (pts.some(isNaN)) {
-      this.setState({showerror: true})
+      this.setState({data: {...this.state.data, showerror: true}})
     } else {
-      this.setState({showerror: false})
-      this.setState({points: pts})
+      this.setState({data: {...this.state.data, showerror: false}})
+      this.setState({input: {...this.state.input, points: pts}})
     }
   }
 
@@ -176,6 +194,47 @@ class App extends Component {
       Simple tooltip
     </Tooltip>
   );
+}
+
+class VerticalBar extends React.Component {
+  render() {
+    const data = {
+      labels:  this.props.labels,
+      datasets: [
+        {
+          // label: 'Grade Distribution',
+          data: this.props.data,
+          backgroundColor: [
+            '#0d6efd'
+          ],
+          borderColor: [
+            'rgba(0, 0, 0)',
+          ],
+          borderWidth: 1,
+        },
+      ],
+    };
+    const options = {
+      plugins: {
+        legend: {
+            display: false,
+        },
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+      animation: true,
+    };
+    return (
+      <Bar data={data} options={options} />
+    )
+  }
 }
 
 function CopyButtonWithOverlay(props) {
