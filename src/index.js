@@ -551,7 +551,7 @@ function LegalButton() {
         containerPadding={20}
       >
         <Popover id="popover-contained">
-          <Popover.Header as="h3">
+          <Popover.Header>
             Legal info
           </Popover.Header>
           <Popover.Body>
