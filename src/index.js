@@ -425,13 +425,13 @@ class Footer extends Component {
       <div className="text-center border-top">
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
         <div className="">🇪🇺 100% EU GDPR compliant (serverless)</div>
-        <Example />
+        <LegalButton />
       </div>
     )
   }
 }
 
-function Example() {
+function LegalButton() {
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
