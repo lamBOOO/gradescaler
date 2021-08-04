@@ -54,6 +54,7 @@ class App extends Component {
           maxpts: 50,
           roof: 50,
           base: 25,
+          roundingMultiplier: 0.5,
         },
         data: defaultData
       };
@@ -114,6 +115,7 @@ class App extends Component {
                         <FormControl
                           placeholder={this.state.input.maxpts}
                           onChange={event => {
+                            this.checkInputForNumericValue(event.target.value)
                             this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
                           }}
                         />
@@ -123,6 +125,7 @@ class App extends Component {
                         <FormControl
                           placeholder={this.state.input.roof}
                           onChange={event => {
+                            this.checkInputForNumericValue(event.target.value)
                             this.setState({ input: { ...this.state.input, roof: event.target.value } })
                           }}
                         />
@@ -132,7 +135,18 @@ class App extends Component {
                         <FormControl
                           placeholder={this.state.input.base}
                           onChange={event => {
+                            this.checkInputForNumericValue(event.target.value)
                             this.setState({ input: { ...this.state.input, base: event.target.value } })
+                          }}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-1 p-0">
+                        <InputGroup.Text id="basic-addon1">🔗 Round to</InputGroup.Text>
+                        <FormControl
+                          placeholder={this.state.input.roundingMultiplier}
+                          onChange={event => {
+                            this.checkInputForNumericValue(event.target.value)
+                            this.setState({ input: { ...this.state.input, roundingMultiplier: event.target.value } })
                           }}
                         />
                       </InputGroup>
@@ -151,7 +165,7 @@ class App extends Component {
                     <FormControl
                       as="textarea"
                       style={{ height: '150px' }}
-                      placeholder={this.state.input.points.join("\n")}
+                      placeholder={this.state.input.points.join(" \n")}
                       onChange={event => {
                         this.handlePointsInput(event.target.value)
                       }}
@@ -236,6 +250,14 @@ class App extends Component {
         <Footer />
       </BrowserRouter>
     )
+  }
+
+  checkInputForNumericValue(inputString) {
+    if (isNaN(inputString)) {
+      this.setState({ data: { ...this.state.data, showerror: true } })
+    } else {
+      this.setState({ data: { ...this.state.data, showerror: false } })
+    }
   }
 
   handlePointsInput(inputString) {
