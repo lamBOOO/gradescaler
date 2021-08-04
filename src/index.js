@@ -445,7 +445,8 @@ class Header extends Component {
   render() {
     return (
       <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">
-        ✍️ Grade Schemer <Badge bg="primary">v1</Badge>
+        {/* <img style={{ height: '24px' }} src="favicon.ico" alt="Logo" /> */}
+        ✍️  Grade Schemer <Badge bg="primary">v1</Badge>
       </h1>
     )
   }
