@@ -373,8 +373,9 @@ class GradeRangesLineChart extends React.Component {
           title: {
             display: true,
             text: 'Grade',
-          }
-        }
+          },
+          reverse: true,
+        },
       },
       animation: true,
     };
