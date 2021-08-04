@@ -19,6 +19,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Badge from 'react-bootstrap/Badge';
 import Table from 'react-bootstrap/Table';
 import Popover from 'react-bootstrap/Popover';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 const AppRouter = () => (
@@ -48,7 +50,6 @@ class App extends Component {
           showerror: false
         }
       }
-      this.data = defaultData
     } else {
       // default
       this.state = {
@@ -63,8 +64,8 @@ class App extends Component {
           showerror: false
         }
       };
-      this.data = defaultData
     }
+    this.data = defaultData;
   }
 
   calculateGrade = (pts) => {
@@ -132,7 +133,10 @@ class App extends Component {
       <BrowserRouter>
         <Header />
         <div>
-          <div className="">
+        <Container>
+          <Row>
+            <Col sm={9} md={10} lg={10}>
+            <div className="">
             <h5 className="fw-bold m-2 text-center">Settings & Input</h5>
             <Container>
               <Row>
@@ -277,11 +281,44 @@ class App extends Component {
               Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
             </div>
           </div>
+            </Col>
+            <Col sm={3} md={2} lg={2}>
+              <h5 className="fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h5>
+              <AmazonLink
+                link="https://amzn.to/2Vh8rxO"
+                imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDNUXBW&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE"
+                title="Hagomoro Chalk"
+                bullets={[
+                  "No dust, best handling, less friction.",
+                  "The BEST chalk around!"
+                ]}
+              />
+              <AmazonLink
+                link="https://amzn.to/37jTwoL"
+                imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1591477433&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
+                title="How to Write a Lot: A Practical Guide to Productive Academic Writing"
+                bullets={[
+                  "A very good guide for writers."
+                ]}
+              />
+              <AmazonLink
+                link="https://amzn.to/3jreXd4"
+                imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07L5GDTYY&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
+                title="Kindle Oasis"
+                bullets={[
+                  "The best e-book reader for all your notes and papers."
+                ]}
+              />
+            </Col>
+          </Row>
+        </Container>
         </div>
         <Footer />
       </BrowserRouter>
     )
   }
+
+
 
   checkInputForNumericValue(inputString) {
     if (isNaN(inputString)) {
@@ -307,6 +344,33 @@ class App extends Component {
       Simple tooltip
     </Tooltip>
   );
+}
+
+class AmazonLink extends React.Component {
+  render() {
+    return (
+      <div>
+        {/* <Card style={{ width: '10rem' }}> */}
+        <Card>
+        <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink}/></a>
+        <Card.Body>
+          {/* <Card.Title>Hagomoro Chalk</Card.Title> */}
+          <Card.Text>
+            <strong>{this.props.title}</strong>
+          <ListGroup className="m-0 p-0 fs-sm" variant="flush">
+            {
+              this.props.bullets.map(
+                bul => <ListGroup.Item className="m-0 p-0"><small>☑️ {bul}</small></ListGroup.Item>
+              )
+            }
+          </ListGroup>
+          </Card.Text>
+          <Button className="btn-sm" variant="primary" target="_blank" href={this.props.link}>Get info</Button>
+        </Card.Body>
+      </Card>
+      </div>
+    )
+  }
 }
 
 class GradeFreqBarChart extends React.Component {
