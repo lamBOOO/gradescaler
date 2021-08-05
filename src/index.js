@@ -23,6 +23,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 const AppRouter = () => (
   <BrowserRouter>
     <Switch>
@@ -132,17 +133,16 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Header />
-        <div>
-        <Container>
+        <div className="p-0 m-0">
+        <Container className="p-0">
           <Row>
-            <Col sm={9} md={10} lg={10}>
-            <div className="">
-            <h5 className="fw-bold m-2 text-center">Settings & Input</h5>
-            <Container>
+            {/* <Col sm={9} md={10} lg={10}> */}
+            <Col>
+            <div className="p-0">
+            <h2 className="fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
+            <Container className="m-0 p-2">
               <Row>
                 <Col>
-                  <Container>
-                    <Row>
                       <InputGroup className="mb-1 p-0">
                         <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
                         <FormControl
@@ -183,27 +183,25 @@ class App extends Component {
                           }}
                         />
                       </InputGroup>
-                    </Row>
-                  </Container>
-                  <div className="text-center">
-                    <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
-                      Reset
-                    </Button>
-                    <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
-                  </div>
                 </Col>
                 <Col>
                   <InputGroup className="mb-3">
                     <InputGroup.Text>Input</InputGroup.Text>
                     <FormControl
                       as="textarea"
-                      style={{ height: '150px' }}
+                      style={{ height: '125px' }}
                       placeholder={this.state.input.points.join(" \n")}
                       onChange={event => {
                         this.handlePointsInput(event.target.value)
                       }}
                     />
                   </InputGroup>
+                  <div className="text-center">
+                    <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
+                      Reset
+                    </Button>
+                    <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
+                  </div>
                 </Col>
               </Row>
             </Container>
@@ -231,12 +229,12 @@ class App extends Component {
             }
           </div>
           <div className="">
-            <h5 className="fw-bold m-2 text-center">Results</h5>
-            <Container>
+            <h2 className="fs-4 fw-bold m-2 text-center">📉 Results</h2>
+            <Container fluid>
               <Row>
-                <Col>
-                  <h6 className="text-center">Graphical data</h6>
-                  <i className="bi bi-cart-fill"></i>
+                <Col md={6}>
+                  <h3 className="fs-6 text-center">Graphical data</h3>
+                  {/* <i className="bi bi-cart-fill"></i> */}
                   <GradeFreqBarChart
                     labels={this.data.gradeScheme}
                     data={this.data.gradeFrequency}
@@ -247,8 +245,8 @@ class App extends Component {
                     maxpts={this.state.input.maxpts}
                   />
                 </Col>
-                <Col>
-                  <h6 className="text-center">Indicators</h6>
+                <Col md={6}>
+                  <h3 className="fs-6 text-center">Indicators</h3>
                   <Table striped bordered hover>
                     <thead>
                       <tr>
@@ -269,36 +267,40 @@ class App extends Component {
                       </tr>
                     </tbody>
                   </Table>
-                  <h6 className="text-center">Tabular data</h6>
+                  <h3 className="fs-6 text-center">Tabular data</h3>
                   <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} />
                 </Col>
               </Row>
             </Container>
           </div>
           <div className="m-3">
-            <h5 className="fw-bold m-2 text-center">About</h5>
+            <h2 className="fs-4 fw-bold m-2 text-center">📚 About</h2>
             <div>
               Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
             </div>
           </div>
             </Col>
-            <Col sm={3} md={2} lg={2}>
-              <h5 className="fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h5>
+            <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
+              <h2 className="fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h2>
+              <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
               <AmazonLink
                 link="https://www.amazon.de/dp/B01HDNUXBW?&linkCode=ll1&tag=gradescaler-21&linkId=9a7ff66540ed90e55e70bd7448a90778&language=de_DE&ref_=as_li_ss_tl"
                 imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDNUXBW&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE"
                 title="Hagomoro Chalk"
                 bullets={[
-                  "No dust, best handling, less friction.",
-                  "The BEST chalk around!"
+                  "made in Japan",
+                  "no dust",
+                  "best handling",
+                  "less friction",
+                  "BEST chalk around!"
                 ]}
               />
               <AmazonLink
                 link="https://www.amazon.de/How-Write-Lot-Practical-Productive/dp/1591477433?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=how+to+write+a+lot&qid=1628119204&sr=8-4&linkCode=ll1&tag=gradescaler-21&linkId=37040218eabc21613164d85302938e0e&language=de_DE&ref_=as_li_ss_tl"
                 imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1591477433&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
-                title="How to Write a Lot: A Practical Guide to Productive Academic Writing"
+                title="A Practical Guide to Productive Academic Writing"
                 bullets={[
-                  "A very good guide for writers."
+                  "good guide for writers",
                 ]}
               />
               <AmazonLink
@@ -306,9 +308,11 @@ class App extends Component {
                 imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07L5GDTYY&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
                 title="Kindle Oasis"
                 bullets={[
-                  "The best e-book reader for all your notes and papers."
+                  "read you papers everywhere",
+                  "handy backlight for bed",
                 ]}
               />
+              </div>
             </Col>
           </Row>
         </Container>
@@ -349,23 +353,21 @@ class App extends Component {
 class AmazonLink extends React.Component {
   render() {
     return (
-      <div>
-        {/* <Card style={{ width: '10rem' }}> */}
-        <Card>
-        <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink}/></a>
+        <div>
+        <Card className="">
+        <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink} alt={this.props.title + " Image"}/></a>
         <Card.Body>
-          {/* <Card.Title>Hagomoro Chalk</Card.Title> */}
-          <Card.Text>
+          <div className="">
             <strong>{this.props.title}</strong>
-          <ListGroup className="m-0 p-0 fs-sm" variant="flush">
-            {
-              this.props.bullets.map(
-                bul => <ListGroup.Item className="m-0 p-0"><small>☑️ {bul}</small></ListGroup.Item>
-              )
-            }
-          </ListGroup>
-          </Card.Text>
-          <Button className="btn-sm" variant="primary" target="_blank" href={this.props.link}>Get info</Button>
+            <ListGroup className="m-0 p-0 fs-sm" variant="flush">
+              {
+                this.props.bullets.map(
+                  bul => <ListGroup.Item key={bul} className="m-0 p-0"><small>{bul}</small></ListGroup.Item>
+                )
+              }
+            </ListGroup>
+          </div>
+          <Button className="btn-sm" variant="outline-primary" target="_blank" href={this.props.link}>😍 Get it!</Button>
         </Card.Body>
       </Card>
       </div>
@@ -519,7 +521,7 @@ class Header extends Component {
 class Footer extends Component {
   render() {
     return (
-      <div className="text-center border-top">
+      <div className="p-3 text-center border-top">
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
         <div className="">🇪🇺 100% EU GDPR compliant (serverless)</div>
         <LegalButton />
