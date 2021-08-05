@@ -24,6 +24,64 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const AmazonAffiliateData = [
+  {
+    link: "https://www.amazon.de/dp/B01HDNUXBW?&linkCode=ll1&tag=gradescaler-21&linkId=9a7ff66540ed90e55e70bd7448a90778&language=de_DE&ref_=as_li_ss_tl",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDNUXBW&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE",
+    title: "Hagomoro Chalk",
+    bullets: [
+      "made in Japan",
+      "no dust",
+      "less friction",
+    ]
+  },
+  {
+    link: "https://www.amazon.de/Logitech-Wireless-Presenter-Cordless-Timer/dp/B002L3TSLQ?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=lehrer&qid=1628170061&sr=8-33&linkCode=ll1&tag=gradescaler-21&linkId=b3a4a7a9f83221ed0e9211e832ce22e0&language=de_DE&ref_=as_li_ss_tl",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B002L3TSLQ&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "Logitech R400 Presenter",
+    bullets: [
+      "absolute must have",
+      "only 12€"
+    ]
+  },
+  {
+    link: "https://www.amazon.de/Bose-Noise-Cancelling-Headphones-Schwarz/dp/B07Q9MJKBV?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=bose+g700&qid=1628170522&sr=8-5&linkCode=ll1&tag=gradescaler-21&linkId=ba3f083d6bb4ab0ce4020cb2495d7876&language=de_DE&ref_=as_li_ss_tl",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07Q9MJKBV&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "Bose Noise Cancelling Headphones 700",
+    bullets: [
+      "work everywhere",
+      "noise cancelling",
+      "best audio qual.",
+    ]
+  },
+  {
+    link: "https://www.amazon.de/Dell-S2721QS-Zoll-curved-entspiegelt/dp/B08FRJ9RJ9?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=27+4k&qid=1628170292&sr=8-9&linkCode=ll1&tag=gradescaler-21&linkId=a081f7b1aea61837d1d9d82858ca9771&language=de_DE&ref_=as_li_ss_tl",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B08FRJ9RJ9&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "Dell S2721QS 27 Zoll 4K UHD",
+    bullets: [
+      "27 inch allow multiple documents dide-by-side",
+      "4K is crispy clear w.o. the need to zoom",
+    ]
+  },
+  {
+    link: "https://www.amazon.de/How-Write-Lot-Practical-Productive/dp/1591477433?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=how+to+write+a+lot&qid=1628119204&sr=8-4&linkCode=ll1&tag=gradescaler-21&linkId=37040218eabc21613164d85302938e0e&language=de_DE&ref_=as_li_ss_tl",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1591477433&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "A Practical Guide to Productive Academic Writing",
+    bullets: [
+      "good guide for writers",
+    ]
+  },
+  {
+    link: "https://www.amazon.de/gp/product/B07L5GDTYY/ref=as_li_tl?ie=UTF8&tag=gradescaler-21&camp=1638&creative=6742&linkCode=as2&creativeASIN=B07L5GDTYY&linkId=4d7cb619629ee981e5d8900478a97050",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07L5GDTYY&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "Kindle Oasis",
+    bullets: [
+      "read you papers everywhere",
+      "handy backlight for bed",
+    ]
+  },
+]
+
 const AppRouter = () => (
   <BrowserRouter>
     <Switch>
@@ -281,38 +339,8 @@ class App extends Component {
           </div>
             </Col>
             <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
-              <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h2>
-              <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
-              <AmazonLink
-                link="https://www.amazon.de/dp/B01HDNUXBW?&linkCode=ll1&tag=gradescaler-21&linkId=9a7ff66540ed90e55e70bd7448a90778&language=de_DE&ref_=as_li_ss_tl"
-                imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B01HDNUXBW&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE"
-                title="Hagomoro Chalk"
-                bullets={[
-                  "made in Japan",
-                  "no dust",
-                  "best handling",
-                  "less friction",
-                  "BEST chalk around!"
-                ]}
-              />
-              <AmazonLink
-                link="https://www.amazon.de/How-Write-Lot-Practical-Productive/dp/1591477433?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=how+to+write+a+lot&qid=1628119204&sr=8-4&linkCode=ll1&tag=gradescaler-21&linkId=37040218eabc21613164d85302938e0e&language=de_DE&ref_=as_li_ss_tl"
-                imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1591477433&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
-                title="A Practical Guide to Productive Academic Writing"
-                bullets={[
-                  "good guide for writers",
-                ]}
-              />
-              <AmazonLink
-                link="https://www.amazon.de/gp/product/B07L5GDTYY/ref=as_li_tl?ie=UTF8&tag=gradescaler-21&camp=1638&creative=6742&linkCode=as2&creativeASIN=B07L5GDTYY&linkId=4d7cb619629ee981e5d8900478a97050"
-                imlink="//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07L5GDTYY&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE"
-                title="Kindle Oasis"
-                bullets={[
-                  "read you papers everywhere",
-                  "handy backlight for bed",
-                ]}
-              />
-              </div>
+              <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher's Must-Havs</h2>
+              <AmazonLinkCards data={AmazonAffiliateData}/>
             </Col>
           </Row>
         </Container>
@@ -350,7 +378,27 @@ class App extends Component {
   );
 }
 
-class AmazonLink extends React.Component {
+class AmazonLinkCards extends React.Component {
+  render() {
+    return (
+      <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
+      {
+        this.props.data.map(
+          (prod) =>
+          <AmazonLinkCard
+          link={prod.link}
+          imlink={prod.imlink}
+          title={prod.title}
+          bullets={prod.bullets}
+        />
+        )
+      }
+      </div>
+    )
+  }
+}
+
+class AmazonLinkCard extends React.Component {
   render() {
     return (
         <div>
@@ -358,7 +406,7 @@ class AmazonLink extends React.Component {
         <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink} alt={this.props.title + " Image"}/></a>
         <Card.Body>
           <div className="">
-            <strong>{this.props.title}</strong>
+            <strong><small>{this.props.title}</small></strong>
             <ListGroup className="m-0 p-0 fs-sm" variant="flush">
               {
                 this.props.bullets.map(
