@@ -138,8 +138,8 @@ class App extends Component {
           <Row>
             {/* <Col sm={9} md={10} lg={10}> */}
             <Col>
-            <div className="p-0">
-            <h2 className="fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
+            <div className="">
+            <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
             <Container className="m-0 p-2">
               <Row>
                 <Col>
@@ -185,7 +185,7 @@ class App extends Component {
                       </InputGroup>
                 </Col>
                 <Col>
-                  <InputGroup className="mb-3">
+                  <InputGroup className="">
                     <InputGroup.Text>Input</InputGroup.Text>
                     <FormControl
                       as="textarea"
@@ -229,7 +229,7 @@ class App extends Component {
             }
           </div>
           <div className="">
-            <h2 className="fs-4 fw-bold m-2 text-center">📉 Results</h2>
+            <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📉 Results</h2>
             <Container fluid>
               <Row>
                 <Col md={6}>
@@ -273,15 +273,15 @@ class App extends Component {
               </Row>
             </Container>
           </div>
-          <div className="m-3">
-            <h2 className="fs-4 fw-bold m-2 text-center">📚 About</h2>
+          <div className="">
+            <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📚 About</h2>
             <div>
               Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
             </div>
           </div>
             </Col>
             <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
-              <h2 className="fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h2>
+              <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher Must-Havs</h2>
               <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
               <AmazonLink
                 link="https://www.amazon.de/dp/B01HDNUXBW?&linkCode=ll1&tag=gradescaler-21&linkId=9a7ff66540ed90e55e70bd7448a90778&language=de_DE&ref_=as_li_ss_tl"
