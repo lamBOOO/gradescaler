@@ -204,9 +204,9 @@ class App extends Component {
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
                           <FormControl
-                            placeholder={this.state.input.maxpts}
+                            value={this.state.input.maxpts}
                             onChange={event => {
-                              this.checkInputForNumericValue(event.target.value)
+                              this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
                             }}
                           />
@@ -214,9 +214,9 @@ class App extends Component {
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
                           <FormControl
-                            placeholder={this.state.input.roof}
+                            value={this.state.input.roof}
                             onChange={event => {
-                              this.checkInputForNumericValue(event.target.value)
+                              this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, roof: event.target.value } })
                             }}
                           />
@@ -230,9 +230,9 @@ class App extends Component {
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
                           <FormControl
-                            placeholder={this.state.input.base}
+                            value={this.state.input.base}
                             onChange={event => {
-                              this.checkInputForNumericValue(event.target.value)
+                              this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, base: event.target.value } })
                             }}
                           />
@@ -246,9 +246,9 @@ class App extends Component {
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">🔗 Round</InputGroup.Text>
                           <FormControl
-                            placeholder={this.state.input.roundingMultiplier}
+                            value={this.state.input.roundingMultiplier}
                             onChange={event => {
-                              this.checkInputForNumericValue(event.target.value)
+                              this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, roundingMultiplier: event.target.value } })
                             }}
                           />
@@ -283,6 +283,7 @@ class App extends Component {
                           <Alert.Heading>🚨 Error in input field.</Alert.Heading>
                           {/* <p> */}
                           <ul className="text-start">
+                            <li>"Max", "Roof", "Base", "Round" have to be positive numbers.</li>
                             <li>Only numeric values are allowed.</li>
                             <li>Decimal separator can be point or comma.</li>
                             <li>The list separator must be any whitespace or a newline.</li>
@@ -377,11 +378,15 @@ class App extends Component {
 
 
 
-  checkInputForNumericValue(inputString) {
+  checkInputForPositiveNumericValue(inputString) {
     if (isNaN(inputString)) {
       this.setState({ data: { ...this.state.data, showerror: true } })
     } else {
-      this.setState({ data: { ...this.state.data, showerror: false } })
+      if (parseFloat(inputString) < 0) {
+        this.setState({ data: { ...this.state.data, showerror: true } })
+      } else {
+        this.setState({ data: { ...this.state.data, showerror: false } })
+      }
     }
   }
 
