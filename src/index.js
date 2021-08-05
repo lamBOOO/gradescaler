@@ -356,10 +356,10 @@ class App extends Component {
                   </Container>
                 </div>
                 <div className="">
-                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🙏 Support me</h2>
+                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🙏 Support / Feedback</h2>
                   <Container className="">
                     <Row><Col>
-                      Support me by clicking any of the teacher must-have products or <a href="https://www.buymeacoffee.com/theisen">buy me a coffee</a>! 🙂
+                      Support me by clicking any of the teacher must-have products or <a href="https://www.buymeacoffee.com/theisen">buy me a coffee</a>! For feedback, just write me an e-mail. 🙂
                     </Col></Row>
                   </Container>
                 </div>
