@@ -113,7 +113,7 @@ class App extends Component {
       // default
       this.state = {
         input: {
-          points: [0, 1, 2, 13, 23, 12, 15, 27, 35, 37, 37, 37, 40, 40, 40, 40, 32, 30, 25, 40, 50, 49, 46, 35, 38, 38, 38, 38, 38, 38, 43, 43, 43, 33, 33, 33, 28, 28, 26],
+          points: [0, 0.5, 0.5, 1, 2, 13, 23, 12, 15, 27, 35, 37, 37, 37, 40, 40, 40, 40, 32, 30, 25, 40, 50, 49, 46, 35, 38, 38, 38, 38, 38, 38, 43, 43, 43, 33, 33, 33, 28, 28, 26, 38.5],
           maxpts: 50,
           roof: 50,
           base: 25,
@@ -221,7 +221,7 @@ class App extends Component {
                             }}
                           />
                           <input
-                            type="range" class="form-range" min={this.state.input.base} max={this.state.input.maxpts} step={this.state.input.roundingMultiplier} id="customRange3" value={this.state.input.roof}
+                            type="range" className="form-range" min={this.state.input.base} max={this.state.input.maxpts} step={this.state.input.roundingMultiplier} id="customRange3" value={this.state.input.roof}
                             onChange={event => {
                               this.setState({ input: { ...this.state.input, roof: event.target.value } })
                             }}
@@ -237,7 +237,7 @@ class App extends Component {
                             }}
                           />
                           <input
-                            type="range" class="form-range" min="0" max={this.state.input.roof} step={this.state.input.roundingMultiplier} id="customRange4" value={this.state.input.base}
+                            type="range" className="form-range" min="0" max={this.state.input.roof} step={this.state.input.roundingMultiplier} id="customRange4" value={this.state.input.base}
                             onChange={event => {
                               this.setState({ input: { ...this.state.input, base: event.target.value } })
                             }}
@@ -310,6 +310,7 @@ class App extends Component {
                           data={this.data.gradeFrequency}
                         />
                         <GradeRangesLineChart
+                          points={this.state.input.points}
                           gradeRange={this.data.gradeRanges}
                           gradeScheme={this.data.gradeScheme}
                           maxpts={this.state.input.maxpts}
@@ -355,9 +356,7 @@ class App extends Component {
                   <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🙏 Support me</h2>
                   <Container className="">
                     <Row><Col>
-                      Support me by clicking any of my recommended teaching products or buy me a coffee! 🙂
-                      <br></br>
-                      <Button className="btn-sm" variant="success" href="https://www.buymeacoffee.com/theisen">Buy me a coffee ☕️</Button>.
+                      Support me by clicking any of the teacher must-have products or <a href="https://www.buymeacoffee.com/theisen">buy me a coffee</a>! 🙂
                     </Col></Row>
                   </Container>
                 </div>
@@ -373,6 +372,8 @@ class App extends Component {
       </BrowserRouter>
     )
   }
+
+
 
 
 
@@ -506,10 +507,37 @@ class GradeRangesLineChart extends React.Component {
         return ({ "x": e, "y": this.props.gradeScheme[this.props.gradeScheme.length - 1 - i] });
       }
     ).concat({ "x": this.props.maxpts, "y": 1 })
-    // console.log(plotData)
+
+    const pts = this.props.points;
+    const frequencyDict = {};
+    for (let i=0; i<pts.length; i++) {
+      if (frequencyDict[pts[i]] > 0) {
+        frequencyDict[pts[i]] = frequencyDict[pts[i]]+1;
+      } else {
+        frequencyDict[pts[i]] = 1;
+      }
+    }
+    const frequencyArray = Object.values(frequencyDict).map(
+      (freq) => parseInt(freq)
+    );
+    const maxFreq = Math.max(...frequencyArray);
+    const scatterData = [];
+    for (const [key, value] of Object.entries(frequencyDict)) {
+      for (let i=0; i < value; i++) {
+        scatterData.push(
+          {
+            x: key,
+            // map to the range [1,5]
+            y: this.props.gradeScheme[this.props.gradeScheme.length-1] - (i / maxFreq/2) * (this.props.gradeScheme[this.props.gradeScheme.length-1] - this.props.gradeScheme[1])
+          }
+        )
+      }
+    }
+
     const data = {
       datasets: [
         {
+          type: "line",
           data: plotData,
           stepped: true,
           backgroundColor: [
@@ -520,6 +548,18 @@ class GradeRangesLineChart extends React.Component {
           ],
           borderWidth: 1,
         },
+        {
+          type: "scatter",
+          data: scatterData,
+          // stepped: true,
+          backgroundColor: [
+            'red'
+          ],
+          // borderColor: [
+          //   'rgba(0, 0, 0)',
+          // ],
+          // borderWidth: 1,
+        },
       ],
     };
     const options = {
@@ -528,7 +568,6 @@ class GradeRangesLineChart extends React.Component {
           display: false,
         },
       },
-
       scales: {
         x: {
           type: 'linear',
@@ -537,15 +576,16 @@ class GradeRangesLineChart extends React.Component {
           title: {
             display: true,
             text: 'Points',
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'Grade',
           },
-          reverse: true,
         },
+        yAxes:
+          {
+            title: {
+              display: true,
+              text: 'Grades',
+            },
+            reverse: true,
+          },
       },
       animation: false,
     };
@@ -598,6 +638,7 @@ class Footer extends Component {
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
         <div className="">🇪🇺 100% EU GDPR compliant (serverless)</div>
         <LegalButton />
+        <Button className="btn-sm p-0" variant="success" href="https://www.buymeacoffee.com/theisen">☕️ Buy me a coffee</Button>
       </div>
     )
   }
@@ -615,7 +656,7 @@ function LegalButton() {
 
   return (
     <div ref={ref}>
-      <Button className="btn-sm" onClick={handleClick}>
+      <Button className="btn-sm p-0" onClick={handleClick}>
         🧑‍⚖️ Legal info / Impressum
       </Button>
       <Overlay
