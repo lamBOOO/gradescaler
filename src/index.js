@@ -192,7 +192,7 @@ class App extends Component {
       <BrowserRouter>
         <Header />
         <div className="p-0 m-0">
-        <Container className="p-0">
+        <Container className="">
           <Row>
             {/* <Col sm={9} md={10} lg={10}> */}
             <Col>
@@ -232,7 +232,7 @@ class App extends Component {
                         />
                       </InputGroup>
                       <InputGroup className="mb-1 p-0">
-                        <InputGroup.Text id="basic-addon1">🔗 Round to</InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1">🔗 Round</InputGroup.Text>
                         <FormControl
                           placeholder={this.state.input.roundingMultiplier}
                           onChange={event => {
@@ -333,9 +333,11 @@ class App extends Component {
           </div>
           <div className="">
             <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📚 About</h2>
-            <div>
+            <Container className="">
+              <Row><Col>
               Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
-            </div>
+              </Col></Row>
+            </Container>
           </div>
             </Col>
             <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
