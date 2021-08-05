@@ -272,7 +272,7 @@ class App extends Component {
                           <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
                             ☢️ Reset
                           </Button>
-                          <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
+                          <CopyButtonWithOverlay copyUrl={window.location.protocol + "//" + window.location.host + '/input=' + JSON.stringify(this.state.input)} />
                         </div>
                       </Col>
                     </Row>
