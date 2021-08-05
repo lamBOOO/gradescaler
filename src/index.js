@@ -270,7 +270,7 @@ class App extends Component {
                         </InputGroup>
                         <div className="text-center">
                           <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
-                            ⚠️ Reset
+                            ☢️ Reset
                           </Button>
                           <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
                         </div>
@@ -612,7 +612,7 @@ function CopyButtonWithOverlay(props) {
 
   return (
     <>
-      <Button className="m-1 btn-sm" variant="primary" ref={target} onClick={() => {
+      <Button className="m-1 btn-sm p-1" variant="primary" ref={target} onClick={() => {
         navigator.clipboard.writeText(encodeURI(props.copyUrl))
         setShow(true)
         setTimeout(() => { setShow(false); }, 2000);
