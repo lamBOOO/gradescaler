@@ -381,7 +381,7 @@ class App extends Component {
 
 
   checkInputForPositiveNumericValue(inputString) {
-    if (inputString == "") {
+    if (inputString === "") {
       this.setState({ data: { ...this.state.data, showerror: true } })
     } else {
       if (isNaN(inputString)) {
