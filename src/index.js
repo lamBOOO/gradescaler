@@ -225,6 +225,7 @@ class App extends Component {
                             onChange={event => {
                               this.setState({ input: { ...this.state.input, roof: event.target.value } })
                             }}
+                            disabled = {this.state.data.showerror}
                           ></input>
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
@@ -241,6 +242,7 @@ class App extends Component {
                             onChange={event => {
                               this.setState({ input: { ...this.state.input, base: event.target.value } })
                             }}
+                            disabled = {this.state.data.showerror}
                           ></input>
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
@@ -340,7 +342,7 @@ class App extends Component {
                           </tbody>
                         </Table>
                         <h3 className="fs-6 text-center">Tabular data</h3>
-                        <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} />
+                        <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} maxpts={this.state.input.maxpts}/>
                       </Col>
                     </Row>
                   </Container>
@@ -379,13 +381,17 @@ class App extends Component {
 
 
   checkInputForPositiveNumericValue(inputString) {
-    if (isNaN(inputString)) {
+    if (inputString == "") {
       this.setState({ data: { ...this.state.data, showerror: true } })
     } else {
-      if (parseFloat(inputString) < 0) {
+      if (isNaN(inputString)) {
         this.setState({ data: { ...this.state.data, showerror: true } })
       } else {
-        this.setState({ data: { ...this.state.data, showerror: false } })
+        if (parseFloat(inputString) < 0) {
+          this.setState({ data: { ...this.state.data, showerror: true } })
+        } else {
+          this.setState({ data: { ...this.state.data, showerror: false } })
+        }
       }
     }
   }
@@ -695,14 +701,16 @@ function LegalButton() {
 class DataTable extends Component {
   render() {
     const gradeScheme = this.props.gradeScheme;
+    let tmpRanges = this.props.gradeRanges;
+    tmpRanges.push(this.props.maxpts);
     const gradeRanges = this.props.gradeRanges;
     const gradeFrequencies = this.props.gradeFrequencies;
     const totalParticipants = gradeFrequencies.reduce((a, b) => a + b, 0)
     const tableBody = gradeScheme.map(
       (e, i) => <tr key={i}>
         <td key={i + 1}>{e}</td>
-        <td key={i + 2}>{gradeRanges[gradeRanges.length - 1 - i]}</td>
-        <td key={i + 3}>{gradeRanges[gradeRanges.length - i]}</td>
+        <td key={i + 2}>{parseFloat(gradeRanges[gradeRanges.length - 2 - i]).toPrecision(3)}</td>
+        <td key={i + 3}>{parseFloat(gradeRanges[gradeRanges.length - 1 - i]).toPrecision(3)}</td>
         <td key={i + 4}>{gradeFrequencies[i]}</td>
         <td key={i + 5}>{(100 * gradeFrequencies[i] / totalParticipants).toPrecision(3)} %</td>
       </tr>
