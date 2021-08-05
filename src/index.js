@@ -113,7 +113,7 @@ class App extends Component {
       // default
       this.state = {
         input: {
-          points: [0, 1, 2, 13, 23, 12, 15, 27, 35, 37, 37, 37, 40, 40, 40, 40, 32, 30, 25, 40, 50, 49, 46, 35, 38, 38, 38, 38, 38, 38, 43, 43, 43, 33, 33, 33, 28, 28,26],
+          points: [0, 1, 2, 13, 23, 12, 15, 27, 35, 37, 37, 37, 40, 40, 40, 40, 32, 30, 25, 40, 50, 49, 46, 35, 38, 38, 38, 38, 38, 38, 43, 43, 43, 33, 33, 33, 28, 28, 26],
           maxpts: 50,
           roof: 50,
           base: 25,
@@ -141,7 +141,7 @@ class App extends Component {
   }
 
   roundm(x, multiple) {
-      return Math.round(x / multiple) * multiple;
+    return Math.round(x / multiple) * multiple;
   }
 
   updateData() {
@@ -163,7 +163,7 @@ class App extends Component {
 
     // average
     const weightedSumArray = this.data.gradeFrequency.map(
-      (e,i) => this.data.gradeScheme[i] * e
+      (e, i) => this.data.gradeScheme[i] * e
     );
     const numParticipants = this.data.gradeFrequency.reduce((a, b) => a + b, 0)
     const weightedSum = weightedSumArray.reduce((a, b) => a + b, 0)
@@ -192,160 +192,170 @@ class App extends Component {
       <BrowserRouter>
         <Header />
         <div className="p-0 m-0">
-        <Container className="">
-          <Row>
-            {/* <Col sm={9} md={10} lg={10}> */}
-            <Col>
-            <div className="">
-            <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
-            <Container className="m-0 p-2">
-              <Row>
-                <Col>
-                      <InputGroup className="mb-1 p-0">
-                        <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
-                        <FormControl
-                          placeholder={this.state.input.maxpts}
-                          onChange={event => {
-                            this.checkInputForNumericValue(event.target.value)
-                            this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
-                          }}
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-1 p-0">
-                        <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
-                        <FormControl
-                          placeholder={this.state.input.roof}
-                          onChange={event => {
-                            this.checkInputForNumericValue(event.target.value)
-                            this.setState({ input: { ...this.state.input, roof: event.target.value } })
-                          }}
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-1 p-0">
-                        <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
-                        <FormControl
-                          placeholder={this.state.input.base}
-                          onChange={event => {
-                            this.checkInputForNumericValue(event.target.value)
-                            this.setState({ input: { ...this.state.input, base: event.target.value } })
-                          }}
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-1 p-0">
-                        <InputGroup.Text id="basic-addon1">🔗 Round</InputGroup.Text>
-                        <FormControl
-                          placeholder={this.state.input.roundingMultiplier}
-                          onChange={event => {
-                            this.checkInputForNumericValue(event.target.value)
-                            this.setState({ input: { ...this.state.input, roundingMultiplier: event.target.value } })
-                          }}
-                        />
-                      </InputGroup>
-                </Col>
-                <Col>
-                  <InputGroup className="">
-                    <InputGroup.Text>Input</InputGroup.Text>
-                    <FormControl
-                      as="textarea"
-                      style={{ height: '125px' }}
-                      placeholder={this.state.input.points.join(" \n")}
-                      onChange={event => {
-                        this.handlePointsInput(event.target.value)
-                      }}
-                    />
-                  </InputGroup>
-                  <div className="text-center">
-                    <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
-                      Reset
-                    </Button>
-                    <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-            {
-              this.state.data.showerror
-                ?
-                <div className="text-center d-flex justify-content-center">
-                  <Alert className="m-2" key="warn" variant="danger">
-                    <Alert.Heading>🚨 Error in input field.</Alert.Heading>
-                    {/* <p> */}
-                      <ul className="text-start">
-                        <li>Only numeric values are allowed.</li>
-                        <li>Decimal separator can be point or comma.</li>
-                        <li>The list separator must be any whitespace or a newline.</li>
-                      </ul>
-                    {/* </p> */}
-                    <hr />
-                    <p className="mb-0">
-                      ➡️ If you don't know how to fix it, reset the whole app and start again.
-                    </p>
-                  </Alert>
+          <Container className="">
+            <Row>
+              {/* <Col sm={9} md={10} lg={10}> */}
+              <Col>
+                <div className="">
+                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
+                  <Container className="m-0 p-2">
+                    <Row>
+                      <Col>
+                        <InputGroup className="mb-1 p-0">
+                          <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
+                          <FormControl
+                            placeholder={this.state.input.maxpts}
+                            onChange={event => {
+                              this.checkInputForNumericValue(event.target.value)
+                              this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
+                            }}
+                          />
+                        </InputGroup>
+                        <InputGroup className="mb-1 p-0">
+                          <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
+                          <FormControl
+                            placeholder={this.state.input.roof}
+                            onChange={event => {
+                              this.checkInputForNumericValue(event.target.value)
+                              this.setState({ input: { ...this.state.input, roof: event.target.value } })
+                            }}
+                          />
+                        </InputGroup>
+                        <InputGroup className="mb-1 p-0">
+                          <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
+                          <FormControl
+                            placeholder={this.state.input.base}
+                            onChange={event => {
+                              this.checkInputForNumericValue(event.target.value)
+                              this.setState({ input: { ...this.state.input, base: event.target.value } })
+                            }}
+                          />
+                        </InputGroup>
+                        <InputGroup className="mb-1 p-0">
+                          <InputGroup.Text id="basic-addon1">🔗 Round</InputGroup.Text>
+                          <FormControl
+                            placeholder={this.state.input.roundingMultiplier}
+                            onChange={event => {
+                              this.checkInputForNumericValue(event.target.value)
+                              this.setState({ input: { ...this.state.input, roundingMultiplier: event.target.value } })
+                            }}
+                          />
+                        </InputGroup>
+                      </Col>
+                      <Col>
+                        <InputGroup className="">
+                          <InputGroup.Text>Input</InputGroup.Text>
+                          <FormControl
+                            as="textarea"
+                            style={{ height: '125px' }}
+                            placeholder={this.state.input.points.join(" \n")}
+                            onChange={event => {
+                              this.handlePointsInput(event.target.value)
+                            }}
+                          />
+                        </InputGroup>
+                        <div className="text-center">
+                          <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
+                            Reset
+                          </Button>
+                          <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                  {
+                    this.state.data.showerror
+                      ?
+                      <div className="text-center d-flex justify-content-center">
+                        <Alert className="m-2" key="warn" variant="danger">
+                          <Alert.Heading>🚨 Error in input field.</Alert.Heading>
+                          {/* <p> */}
+                          <ul className="text-start">
+                            <li>Only numeric values are allowed.</li>
+                            <li>Decimal separator can be point or comma.</li>
+                            <li>The list separator must be any whitespace or a newline.</li>
+                          </ul>
+                          {/* </p> */}
+                          <hr />
+                          <p className="mb-0">
+                            ➡️ If you don't know how to fix it, reset the whole app and start again.
+                          </p>
+                        </Alert>
+                      </div>
+                      :
+                      ''
+                  }
                 </div>
-                :
-                ''
-            }
-          </div>
-          <div className="">
-            <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📉 Results</h2>
-            <Container fluid>
-              <Row>
-                <Col md={6}>
-                  <h3 className="fs-6 text-center">Graphical data</h3>
-                  {/* <i className="bi bi-cart-fill"></i> */}
-                  <GradeFreqBarChart
-                    labels={this.data.gradeScheme}
-                    data={this.data.gradeFrequency}
-                  />
-                  <GradeRangesLineChart
-                    gradeRange={this.data.gradeRanges}
-                    gradeScheme={this.data.gradeScheme}
-                    maxpts={this.state.input.maxpts}
-                  />
-                </Col>
-                <Col md={6}>
-                  <h3 className="fs-6 text-center">Indicators</h3>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>👩‍👩‍👦‍👦 Num</th>
-                        <th>📊 Average</th>
-                        <th>😰 Failing Rate</th>
-                        <th>🥳 Percentage to pass</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{this.data.gradeFrequency.reduce((a, b) => a + b, 0)}</td>
-                        <td>{this.data.average}</td>
-                        <td>{
-                          (100*this.data.gradeFrequency[this.data.gradeFrequency.length-1] / this.data.gradeFrequency.reduce((a, b) => a + b, 0)).toPrecision(3)
-                        } %</td>
-                        <td>{(100*this.data.gradeRanges[1]/this.state.input.maxpts).toPrecision(3)} %</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <h3 className="fs-6 text-center">Tabular data</h3>
-                  <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-          <div className="">
-            <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📚 About</h2>
-            <Container className="">
-              <Row><Col>
-              Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
-              </Col></Row>
-            </Container>
-          </div>
-            </Col>
-            <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
-              <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher's Must-Havs</h2>
-              <AmazonLinkCards data={AmazonAffiliateData}/>
-            </Col>
-          </Row>
-        </Container>
+                <div className="">
+                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📉 Results</h2>
+                  <Container fluid>
+                    <Row>
+                      <Col md={6}>
+                        <h3 className="fs-6 text-center">Graphical data</h3>
+                        {/* <i className="bi bi-cart-fill"></i> */}
+                        <GradeFreqBarChart
+                          labels={this.data.gradeScheme}
+                          data={this.data.gradeFrequency}
+                        />
+                        <GradeRangesLineChart
+                          gradeRange={this.data.gradeRanges}
+                          gradeScheme={this.data.gradeScheme}
+                          maxpts={this.state.input.maxpts}
+                        />
+                      </Col>
+                      <Col md={6}>
+                        <h3 className="fs-6 text-center">Indicators</h3>
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>👩‍👩‍👦‍👦 Num</th>
+                              <th>📊 Average</th>
+                              <th>😰 Failing Rate</th>
+                              <th>🥳 Percentage to pass</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{this.data.gradeFrequency.reduce((a, b) => a + b, 0)}</td>
+                              <td>{this.data.average}</td>
+                              <td>{
+                                (100 * this.data.gradeFrequency[this.data.gradeFrequency.length - 1] / this.data.gradeFrequency.reduce((a, b) => a + b, 0)).toPrecision(3)
+                              } %</td>
+                              <td>{(100 * this.data.gradeRanges[1] / this.state.input.maxpts).toPrecision(3)} %</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                        <h3 className="fs-6 text-center">Tabular data</h3>
+                        <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} />
+                      </Col>
+                    </Row>
+                  </Container>
+                </div>
+                <div className="">
+                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📚 About</h2>
+                  <Container className="">
+                    <Row><Col>
+                      Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
+                    </Col></Row>
+                  </Container>
+                </div>
+                <div className="">
+                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🙏 Support me</h2>
+                  <Container className="">
+                    <Row><Col>
+                      Support me by clicking any of my recommended teaching products or buy me a coffee! 🙂
+                      <br></br>
+                      <Button className="btn-sm" variant="success" href="https://www.buymeacoffee.com/theisen">Buy me a coffee ☕️</Button>.
+                    </Col></Row>
+                  </Container>
+                </div>
+              </Col>
+              <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
+                <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher's Must-Havs</h2>
+                <AmazonLinkCards data={AmazonAffiliateData} />
+              </Col>
+            </Row>
+          </Container>
         </div>
         <Footer />
       </BrowserRouter>
@@ -384,18 +394,18 @@ class AmazonLinkCards extends React.Component {
   render() {
     return (
       <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
-      {
-        this.props.data.map(
-          (prod) =>
-          <AmazonLinkCard
-          key={prod.link}
-          link={prod.link}
-          imlink={prod.imlink}
-          title={prod.title}
-          bullets={prod.bullets}
-        />
-        )
-      }
+        {
+          this.props.data.map(
+            (prod) =>
+              <AmazonLinkCard
+                key={prod.link}
+                link={prod.link}
+                imlink={prod.imlink}
+                title={prod.title}
+                bullets={prod.bullets}
+              />
+          )
+        }
       </div>
     )
   }
@@ -404,23 +414,23 @@ class AmazonLinkCards extends React.Component {
 class AmazonLinkCard extends React.Component {
   render() {
     return (
-        <div className="m-0 p-2">
+      <div className="m-0 p-2">
         <Card className="">
-        <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink} alt={this.props.title + " Image"}/></a>
-        <Card.Body>
-          <div className="">
-            <strong><small>{this.props.title}</small></strong>
-            <ListGroup className="m-0 p-0 fs-sm" variant="flush">
-              {
-                this.props.bullets.map(
-                  bul => <ListGroup.Item key={bul} className="m-0 p-0"><small>{bul}</small></ListGroup.Item>
-                )
-              }
-            </ListGroup>
-          </div>
-          <Button className="btn-sm" variant="outline-primary" target="_blank" href={this.props.link}>😍 Get it!</Button>
-        </Card.Body>
-      </Card>
+          <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink} alt={this.props.title + " Image"} /></a>
+          <Card.Body>
+            <div className="">
+              <strong><small>{this.props.title}</small></strong>
+              <ListGroup className="m-0 p-0 fs-sm" variant="flush">
+                {
+                  this.props.bullets.map(
+                    bul => <ListGroup.Item key={bul} className="m-0 p-0"><small>{bul}</small></ListGroup.Item>
+                  )
+                }
+              </ListGroup>
+            </div>
+            <Button className="btn-sm" variant="outline-primary" target="_blank" href={this.props.link}>😍 Get it!</Button>
+          </Card.Body>
+        </Card>
       </div>
     )
   }
@@ -547,7 +557,7 @@ function CopyButtonWithOverlay(props) {
       }>
         Copy link
       </Button>
-      <Overlay target={target.current} show={show} placement="right">
+      <Overlay target={target.current} show={show} placement="top">
         {(props) => (
           <Tooltip id="overlay-example" {...props}>
             ✉️ Copied link into clipboard!
@@ -632,11 +642,11 @@ class DataTable extends Component {
     const totalParticipants = gradeFrequencies.reduce((a, b) => a + b, 0)
     const tableBody = gradeScheme.map(
       (e, i) => <tr key={i}>
-        <td key={i+1}>{e}</td>
-        <td key={i+2}>{gradeRanges[gradeRanges.length-1-i]}</td>
-        <td key={i+3}>{gradeRanges[gradeRanges.length-i]}</td>
-        <td key={i+4}>{gradeFrequencies[i]}</td>
-        <td key={i+5}>{(100 * gradeFrequencies[i] / totalParticipants).toPrecision(3)} %</td>
+        <td key={i + 1}>{e}</td>
+        <td key={i + 2}>{gradeRanges[gradeRanges.length - 1 - i]}</td>
+        <td key={i + 3}>{gradeRanges[gradeRanges.length - i]}</td>
+        <td key={i + 4}>{gradeFrequencies[i]}</td>
+        <td key={i + 5}>{(100 * gradeFrequencies[i] / totalParticipants).toPrecision(3)} %</td>
       </tr>
     )
     return (
