@@ -220,6 +220,12 @@ class App extends Component {
                               this.setState({ input: { ...this.state.input, roof: event.target.value } })
                             }}
                           />
+                          <input
+                            type="range" class="form-range" min={this.state.input.base} max={this.state.input.maxpts} step={this.state.input.roundingMultiplier} id="customRange3" value={this.state.input.roof}
+                            onChange={event => {
+                              this.setState({ input: { ...this.state.input, roof: event.target.value } })
+                            }}
+                          ></input>
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
@@ -230,6 +236,12 @@ class App extends Component {
                               this.setState({ input: { ...this.state.input, base: event.target.value } })
                             }}
                           />
+                          <input
+                            type="range" class="form-range" min="0" max={this.state.input.roof} step={this.state.input.roundingMultiplier} id="customRange4" value={this.state.input.base}
+                            onChange={event => {
+                              this.setState({ input: { ...this.state.input, base: event.target.value } })
+                            }}
+                          ></input>
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">🔗 Round</InputGroup.Text>
@@ -247,7 +259,7 @@ class App extends Component {
                           <InputGroup.Text>Input</InputGroup.Text>
                           <FormControl
                             as="textarea"
-                            style={{ height: '125px' }}
+                            style={{ height: '175px' }}
                             placeholder={this.state.input.points.join(" \n")}
                             onChange={event => {
                               this.handlePointsInput(event.target.value)
@@ -479,7 +491,7 @@ class GradeFreqBarChart extends React.Component {
           },
         },
       },
-      animation: true,
+      animation: false,
     };
     return (
       <Bar data={data} options={options} />
@@ -535,7 +547,7 @@ class GradeRangesLineChart extends React.Component {
           reverse: true,
         },
       },
-      animation: true,
+      animation: false,
     };
     return (
       <Line data={data} options={options} />
