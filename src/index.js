@@ -386,6 +386,7 @@ class AmazonLinkCards extends React.Component {
         this.props.data.map(
           (prod) =>
           <AmazonLinkCard
+          key={prod.link}
           link={prod.link}
           imlink={prod.imlink}
           title={prod.title}
@@ -401,7 +402,7 @@ class AmazonLinkCards extends React.Component {
 class AmazonLinkCard extends React.Component {
   render() {
     return (
-        <div>
+        <div className="m-0 p-2">
         <Card className="">
         <a href={this.props.link}><Card.Img variant="top" src={this.props.imlink} alt={this.props.title + " Image"}/></a>
         <Card.Body>
