@@ -270,7 +270,7 @@ class App extends Component {
                         </InputGroup>
                         <div className="text-center">
                           <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
-                            Reset
+                            ⚠️ Reset
                           </Button>
                           <CopyButtonWithOverlay copyUrl={window.location.host + '/input=' + JSON.stringify(this.state.input)} />
                         </div>
@@ -618,12 +618,12 @@ function CopyButtonWithOverlay(props) {
         setTimeout(() => { setShow(false); }, 2000);
       }
       }>
-        Copy link
+        ✉️ Copy link
       </Button>
       <Overlay target={target.current} show={show} placement="top">
         {(props) => (
           <Tooltip id="overlay-example" {...props}>
-            ✉️ Copied link into clipboard!
+            ✅ Copied link into clipboard!
           </Tooltip>
         )}
       </Overlay>
