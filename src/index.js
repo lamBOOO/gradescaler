@@ -5,7 +5,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -527,6 +527,7 @@ class GradeFreqBarChart extends React.Component {
           options: this.options,
         }
       );
+      myChart.update();
       document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
 
     }
