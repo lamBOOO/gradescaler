@@ -183,6 +183,10 @@ class App extends Component {
   }
 
   render() {
+    let link = document.createElement('meta');
+    link.setAttribute('property', 'og:image');
+    link.content = "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+    document.getElementsByTagName('head')[0].appendChild(link);
     if (
       !this.state.data.showerror &&
       this.validateInput()
@@ -528,11 +532,6 @@ class GradeFreqBarChart extends React.Component {
         }
       );
       myChart.update();
-
-      let link = document.createElement('meta');
-      link.setAttribute('property', 'og:image');
-      link.content = "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
-      document.getElementsByTagName('head')[0].appendChild(link);
 
       // document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
 
