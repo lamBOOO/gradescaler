@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react'
+import React, { Component, useState, useRef, createRef } from 'react'
 import ReactDOM from 'react-dom'
 import {
   BrowserRouter,
@@ -23,6 +23,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Chart } from 'chart.js';
 
 const AmazonAffiliateData = [
   {
@@ -461,54 +462,74 @@ class AmazonLinkCard extends React.Component {
 }
 
 class GradeFreqBarChart extends React.Component {
-  render() {
-    const data = {
-      labels: this.props.labels,
-      datasets: [
+    constructor(props) {
+      super(props)
+      this.gradeFreqBarChartRef = createRef();
+      this.data = {
+        labels: props.labels,
+        datasets: [
+          {
+            // label: 'Grade Distribution',
+            data: props.data,
+            backgroundColor: [
+              '#0d6efd'
+            ],
+            borderColor: [
+              'rgba(0, 0, 0)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
+      this.options = {
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Points',
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Grade',
+            },
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        },
+        animation: false,
+      };
+
+    }
+    render() {
+      return (
+        // <Bar ref={this.gradeFreqBarChartRef} data={this.data} options={this.options} />
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+      );
+    }
+    componentDidMount() {
+      var myChart = new Chart(
+        document.getElementById('myChart'),
         {
-          // label: 'Grade Distribution',
-          data: this.props.data,
-          backgroundColor: [
-            '#0d6efd'
-          ],
-          borderColor: [
-            'rgba(0, 0, 0)',
-          ],
-          borderWidth: 1,
-        },
-      ],
-    };
-    const options = {
-      maintainAspectRatio: true,
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      scales: {
-        x: {
-          display: true,
-          title: {
-            display: true,
-            text: 'Points',
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'Grade',
-          },
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      },
-      animation: false,
-    };
-    return (
-      <Bar data={data} options={options} />
-    )
-  }
+          type: 'bar',
+          data: this.data,
+          options: this.options,
+        }
+      );
+      document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
+
+    }
 }
 
 class GradeRangesLineChart extends React.Component {
