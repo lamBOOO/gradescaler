@@ -65,14 +65,6 @@ const AmazonAffiliateData = [
     ]
   },
   {
-    link: "https://www.amazon.de/How-Write-Lot-Practical-Productive/dp/1591477433?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=how+to+write+a+lot&qid=1628119204&sr=8-4&linkCode=ll1&tag=gradescaler-21&linkId=37040218eabc21613164d85302938e0e&language=de_DE&ref_=as_li_ss_tl",
-    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=1591477433&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
-    title: "A Practical Guide to Productive Academic Writing",
-    bullets: [
-      "good guide for writers",
-    ]
-  },
-  {
     link: "https://www.amazon.de/gp/product/B07L5GDTYY/ref=as_li_tl?ie=UTF8&tag=gradescaler-21&camp=1638&creative=6742&linkCode=as2&creativeASIN=B07L5GDTYY&linkId=4d7cb619629ee981e5d8900478a97050",
     imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07L5GDTYY&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
     title: "Kindle Oasis",
@@ -464,7 +456,7 @@ class AddCustomAmazonProductCard extends React.Component {
               <div className="">
                 <strong><small>Tell me your favorite</small></strong>
               </div>
-              <InputGroup className="mb-1 p-0">
+              <InputGroup className="mb-1 p-0" size="sm">
                 <InputGroup.Text id="basic-addon1">ASIN</InputGroup.Text>
                 <FormControl
                   placeholder="B07Q9MJKBV"
@@ -478,7 +470,7 @@ class AddCustomAmazonProductCard extends React.Component {
               onClick={event => {
                 this.setState({asin: this.data.asin})
               }}
-              >👍 Recommend!</Button>
+              >💻 Preview!</Button>
             </Card.Body>
           </Card>
         </div>
@@ -491,7 +483,7 @@ class AddCustomAmazonProductCard extends React.Component {
           link={"https://www.amazon.de/dp/" + this.state.asin + "?&linkCode=ll1&tag=gradescaler-21"}
           imlink={"//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=" + this.state.asin + "&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE"}
           title="Your suggestion"
-          bullets={["why is it a must-have?"]}
+          bullets={["your favorite specs", "reasons to choose"]}
           includeFeedback={true}
         />
       )
@@ -521,7 +513,7 @@ class AmazonLinkCard extends React.Component {
             {
               this.props.includeFeedback
                 ?
-                <Button className="btn-sm" variant="outline-primary" target="_blank" href="mailto:poldi.icq(at)arcor.de">💌 Inform me!</Button>
+                <Button className="btn-sm" variant="outline-primary" target="_blank" href="mailto:poldi.icq(at)arcor.de?subject=Product%20Recommendation">💌 Tell me!</Button>
                 :
                 ''
             }
