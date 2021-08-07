@@ -420,7 +420,7 @@ class App extends Component {
 }
 
 class AmazonLinkCards extends React.Component {
-  render() {
+render() {
     return (
       <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
         {
@@ -432,11 +432,70 @@ class AmazonLinkCards extends React.Component {
                 imlink={prod.imlink}
                 title={prod.title}
                 bullets={prod.bullets}
+                includeFeedback={false}
               />
           )
         }
+        <AddCustomAmazonProductCard />
       </div>
     )
+  }
+}
+
+
+
+class AddCustomAmazonProductCard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      asin: null
+    };
+    this.data = {
+      asin: null
+    };
+  }
+
+  render() {
+    if (this.state.asin === null) {
+      return (
+        <div className="m-0 p-2">
+          <Card className="">
+            <Card.Body>
+              <div className="">
+                <strong><small>Tell me your favorite</small></strong>
+              </div>
+              <InputGroup className="mb-1 p-0">
+                <InputGroup.Text id="basic-addon1">ASIN</InputGroup.Text>
+                <FormControl
+                  placeholder="B07Q9MJKBV"
+                  onChange={event => {
+                    this.data.asin = event.target.value;
+                  }}
+                />
+              </InputGroup>
+              <Button
+              className="btn-sm" variant="outline-primary" target="_blank"
+              onClick={event => {
+                this.setState({asin: this.data.asin})
+              }}
+              >👍 Recommend!</Button>
+            </Card.Body>
+          </Card>
+        </div>
+      )
+    } else {
+      console.log(this.state.asin);
+      return (
+        <AmazonLinkCard
+          key="newProd"
+          link={"https://www.amazon.de/dp/" + this.state.asin + "?&linkCode=ll1&tag=gradescaler-21"}
+          imlink={"//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=" + this.state.asin + "&Format=_SL250_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=&language=de_DE"}
+          title="Your suggestion"
+          bullets={["why is it a must-have?"]}
+          includeFeedback={true}
+        />
+      )
+    }
   }
 }
 
@@ -457,7 +516,16 @@ class AmazonLinkCard extends React.Component {
                 }
               </ListGroup>
             </div>
+            <div className="">
             <Button className="btn-sm" variant="outline-primary" target="_blank" href={this.props.link}>😍 Get it!</Button>
+            {
+              this.props.includeFeedback
+                ?
+                <Button className="btn-sm" variant="outline-primary" target="_blank" href="mailto:poldi.icq(at)arcor.de">💌 Inform me!</Button>
+                :
+                ''
+            }
+            </div>
           </Card.Body>
         </Card>
       </div>
