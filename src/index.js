@@ -5,7 +5,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -23,7 +23,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Chart } from 'chart.js';
+// import { Chart } from 'chart.js';
 
 const AmazonAffiliateData = [
   {
@@ -469,12 +469,14 @@ class GradeFreqBarChart extends React.Component {
     constructor(props) {
       super(props)
       this.gradeFreqBarChartRef = createRef();
+    }
+    render() {
       this.data = {
-        labels: props.labels,
+        labels: this.props.labels,
         datasets: [
           {
             // label: 'Grade Distribution',
-            data: props.data,
+            data: this.props.data,
             backgroundColor: [
               '#0d6efd'
             ],
@@ -512,26 +514,23 @@ class GradeFreqBarChart extends React.Component {
         },
         animation: false,
       };
-
-    }
-    render() {
       return (
-        // <Bar ref={this.gradeFreqBarChartRef} data={this.data} options={this.options} />
-        <div>
-          <canvas id="myChart"></canvas>
-        </div>
+        <Bar ref={this.gradeFreqBarChartRef} data={this.data} options={this.options} />
+        // <div>
+        //   <canvas id="myChart"></canvas>
+        // </div>
       );
     }
     componentDidMount() {
-      var myChart = new Chart(
-        document.getElementById('myChart'),
-        {
-          type: 'bar',
-          data: this.data,
-          options: this.options,
-        }
-      );
-      myChart.update();
+      // var myChart = new Chart(
+      //   document.getElementById('myChart'),
+      //   {
+      //     type: 'bar',
+      //     data: this.data,
+      //     options: this.options,
+      //   }
+      // );
+      // myChart.update();
 
       // document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
 
