@@ -11,8 +11,13 @@ module.exports = (req, res) => {
   // res.send(req.query);
 
   // const indexPath  = path.resolve(__dirname, '..', 'build', 'index.html');
-  const indexPath  = path.resolve(__dirname, '..', 'index.html');
+  const indexPath  = path.resolve(__dirname, '..', 'public', 'index.html');
   fs.readdir(path.resolve(__dirname, '..'), (err, files) => {
+    files.forEach(file => {
+      console.log(file);
+    });
+  });
+  fs.readdir(path.resolve(__dirname, '..', 'public'), (err, files) => {
     files.forEach(file => {
       console.log(file);
     });
