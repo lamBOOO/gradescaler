@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     query: req.query,
     cookies: req.cookies,
   });
-  res.send(req.query);
+  // res.send(req.query);
 
   // const indexPath  = path.resolve(__dirname, '..', 'build', 'index.html');
   // fs.readFile(indexPath, 'utf8', (err, htmlData) => {
