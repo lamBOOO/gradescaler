@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/link.js": {
-      "includeFiles": "public/**"
+      "includeFiles": "build/**"
     }
   }
 }
