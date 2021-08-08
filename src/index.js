@@ -722,8 +722,8 @@ class Header extends Component {
   render() {
     return (
       <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">
-        {/* <img style={{ height: '24px' }} src="favicon.ico" alt="Logo" /> */}
-        ✍️  Grade Scaler <Badge bg="primary">v1</Badge>
+        <img className="m-2" style={{ height: '40px' }} src="favicon.ico" alt="Logo" />
+        <span className="align-middle">Grade Scaler</span> <Badge bg="primary">v1</Badge>
       </h1>
     )
   }
