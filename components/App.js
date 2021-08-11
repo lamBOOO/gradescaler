@@ -728,7 +728,6 @@ class Footer extends Component {
     return (
       <div className="p-3 text-center border-top">
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
-        <div className="">🇪🇺 100% EU GDPR compliant (serverless)</div>
         <LegalButton />
         <Button className="btn-sm p-0" variant="success" href="https://www.buymeacoffee.com/theisen">☕️ Buy me a coffee</Button>
       </div>
