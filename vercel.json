@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/link.js": {
-      "includeFiles": "build/**"
-    }
-  }
-}

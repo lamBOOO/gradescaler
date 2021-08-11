@@ -1,10 +1,5 @@
 import React, { Component, useState, useRef, createRef } from 'react'
-import ReactDOM from 'react-dom'
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { NextSeo } from 'next-seo';
 import { Line, Bar } from 'react-chartjs-2';
 
 import Button from 'react-bootstrap/Button';
@@ -23,7 +18,6 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { Chart } from 'chart.js';
 
 const AmazonAffiliateData = [
   {
@@ -75,16 +69,7 @@ const AmazonAffiliateData = [
   },
 ]
 
-const AppRouter = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path='/' render={(props) => <App {...props} />} />
-      <Route path='/input=:input' render={(props) => <App {...props} />} />
-    </Switch>
-  </BrowserRouter>
-);
-
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     const defaultData = {
@@ -93,11 +78,12 @@ class App extends Component {
       gradeFrequency: null,
       gradeRanges: null,
       average: null,
+      changeOgImage: this.props.changeOgImage,
     }
-    const { input } = props.match.params;
+    const input = props.input
     if (input != null) {
       this.state = {
-        input: JSON.parse(input),
+        input: input,
         data: {
           showerror: false
         }
@@ -114,7 +100,7 @@ class App extends Component {
           roundingMultiplier: 0.5,
         },
         data: {
-          showerror: false
+          showerror: false,
         }
       };
     }
@@ -176,10 +162,6 @@ class App extends Component {
   }
 
   render() {
-    // let link = document.createElement('meta');
-    // link.setAttribute('property', 'og:image');
-    // link.content = "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
-    // document.getElementsByTagName('head')[0].appendChild(link);
     if (
       !this.state.data.showerror &&
       this.validateInput()
@@ -187,12 +169,11 @@ class App extends Component {
       this.updateData()
     }
     return (
-      <BrowserRouter>
+      <div>
         <Header />
         <div className="p-0 m-0">
           <Container className="">
             <Row>
-              {/* <Col sm={9} md={10} lg={10}> */}
               <Col>
                 <div className="">
                   <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
@@ -203,6 +184,8 @@ class App extends Component {
                           <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
                           <FormControl
                             value={this.state.input.maxpts}
+                            aria-label={this.state.input.maxpts}
+                            aria-describedby="basic-addon1"
                             onChange={event => {
                               this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, maxpts: event.target.value } })
@@ -210,16 +193,26 @@ class App extends Component {
                           />
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
-                          <InputGroup.Text id="basic-addon1">🥸 Roof</InputGroup.Text>
+                          <InputGroup.Text id="basic-addon2">⬆️ Roof</InputGroup.Text>
                           <FormControl
                             value={this.state.input.roof}
+                            aria-label={this.state.input.roof}
+                            aria-describedby="basic-addon2"
                             onChange={event => {
                               this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, roof: event.target.value } })
                             }}
                           />
                           <input
-                            type="range" className="form-range" min={this.state.input.base} max={this.state.input.maxpts} step={this.state.input.roundingMultiplier} id="customRange3" value={this.state.input.roof}
+                            type="range"
+                            className="form-range"
+                            min={this.state.input.base}
+                            max={this.state.input.maxpts}
+                            step={this.state.input.roundingMultiplier}
+                            id="customRange3"
+                            value={this.state.input.roof}
+                            aria-label={this.state.input.roof}
+                            aria-describedby="basic-addon2"
                             onChange={event => {
                               this.setState({ input: { ...this.state.input, roof: event.target.value } })
                             }}
@@ -227,16 +220,26 @@ class App extends Component {
                           ></input>
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
-                          <InputGroup.Text id="basic-addon1">🥳 Base</InputGroup.Text>
+                          <InputGroup.Text id="basic-addon3">⬇️ Base</InputGroup.Text>
                           <FormControl
                             value={this.state.input.base}
+                            aria-label={this.state.input.base}
+                            aria-describedby="basic-addon3"
                             onChange={event => {
                               this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, base: event.target.value } })
                             }}
                           />
                           <input
-                            type="range" className="form-range" min="0" max={this.state.input.roof} step={this.state.input.roundingMultiplier} id="customRange4" value={this.state.input.base}
+                            type="range"
+                            className="form-range"
+                            min="0"
+                            max={this.state.input.roof}
+                            step={this.state.input.roundingMultiplier}
+                            id="customRange4"
+                            value={this.state.input.base}
+                            aria-label={this.state.input.base}
+                            aria-describedby="basic-addon3"
                             onChange={event => {
                               this.setState({ input: { ...this.state.input, base: event.target.value } })
                             }}
@@ -244,9 +247,11 @@ class App extends Component {
                           ></input>
                         </InputGroup>
                         <InputGroup className="mb-1 p-0">
-                          <InputGroup.Text id="basic-addon1">🔗 Round</InputGroup.Text>
+                          <InputGroup.Text id="basic-addon4">🔗 Round</InputGroup.Text>
                           <FormControl
                             value={this.state.input.roundingMultiplier}
+                            aria-label={this.state.input.roundingMultiplier}
+                            aria-describedby="basic-addon4"
                             onChange={event => {
                               this.checkInputForPositiveNumericValue(event.target.value)
                               this.setState({ input: { ...this.state.input, roundingMultiplier: event.target.value } })
@@ -267,10 +272,10 @@ class App extends Component {
                           />
                         </InputGroup>
                         <div className="text-center">
-                          <Button className="btn-sm m-1" variant="danger" onClick={() => { window.location.href = "/" }}>
+                          <Button className="btn-sm m-1" variant="danger" onClick={() => { if (typeof window !== "undefined"){window.location.href = "/" }}}>
                             ☢️ Reset
                           </Button>
-                          <CopyButtonWithOverlay copyUrl={window.location.protocol + "//" + window.location.host + '/input=' + JSON.stringify(this.state.input)} />
+                          <CopyButtonWithOverlay copyUrl={(typeof window !== "undefined") ? window.location.protocol + "//" + window.location.host + '/' + JSON.stringify(this.state.input) : ''} />
                         </div>
                       </Col>
                     </Row>
@@ -281,14 +286,12 @@ class App extends Component {
                       <div className="text-center d-flex justify-content-center">
                         <Alert className="m-2" key="warn" variant="danger">
                           <Alert.Heading>🚨 Error in input field.</Alert.Heading>
-                          {/* <p> */}
                           <ul className="text-start">
                             <li>"Max", "Roof", "Base", "Round" have to be positive numbers.</li>
                             <li>Only numeric values are allowed.</li>
                             <li>Decimal separator can be point or comma.</li>
                             <li>The list separator must be any whitespace or a newline.</li>
                           </ul>
-                          {/* </p> */}
                           <hr />
                           <p className="mb-0">
                             ➡️ If you don't know how to fix it, reset the whole app and start again.
@@ -305,42 +308,37 @@ class App extends Component {
                     <Row>
                       <Col md={6}>
                         <h3 className="fs-6 text-center">Graphical data</h3>
-                        {/* <i className="bi bi-cart-fill"></i> */}
                         <GradeFreqBarChart
-                          labels={this.data.gradeScheme}
-                          data={this.data.gradeFrequency}
+                          changeOgImage = {this.data.changeOgImage}
+                          labels = {this.data.gradeScheme}
+                          data = {this.data.gradeFrequency}
                         />
                         <GradeRangesLineChart
-                          points={this.state.input.points}
-                          gradeRange={this.data.gradeRanges}
-                          gradeScheme={this.data.gradeScheme}
-                          maxpts={this.state.input.maxpts}
+                          points = {this.state.input.points}
+                          gradeRange = {this.data.gradeRanges}
+                          gradeScheme = {this.data.gradeScheme}
+                          maxpts = {this.state.input.maxpts}
                         />
                       </Col>
-                      <Col md={6}>
+                      <Col md = {6}>
                         <h3 className="fs-6 text-center">Indicators</h3>
-                        <Table striped bordered hover>
-                          <thead>
-                            <tr>
-                              <th>👩‍👩‍👦‍👦 Num</th>
-                              <th>📊 Average</th>
-                              <th>😰 Failing Rate</th>
-                              <th>🥳 Percentage to pass</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>{this.data.gradeFrequency.reduce((a, b) => a + b, 0)}</td>
-                              <td>{this.data.average}</td>
-                              <td>{
-                                (100 * this.data.gradeFrequency[this.data.gradeFrequency.length - 1] / this.data.gradeFrequency.reduce((a, b) => a + b, 0)).toPrecision(3)
-                              } %</td>
-                              <td>{(100 * this.data.gradeRanges[1] / this.state.input.maxpts).toPrecision(3)} %</td>
-                            </tr>
-                          </tbody>
-                        </Table>
+                        <IndicatorTable
+                          gradeFrequency = {this.data.gradeFrequency}
+                          average = {this.data.average}
+                          gradeRanges = {this.data.gradeRanges}
+                          maxpts = {this.state.input.maxpts}
+                          roof = {this.state.input.roof}
+                          base = {this.state.input.base}
+                          roundingMultiplier = {this.state.input.roundingMultiplier}
+                          changeDescription = {this.props.changeDescription}
+                        />
                         <h3 className="fs-6 text-center">Tabular data</h3>
-                        <DataTable gradeScheme={this.data.gradeScheme} gradeRanges={this.data.gradeRanges} gradeFrequencies={this.data.gradeFrequency} maxpts={this.state.input.maxpts}/>
+                        <DataTable
+                          gradeScheme = {this.data.gradeScheme}
+                          gradeRanges = {this.data.gradeRanges}
+                          gradeFrequencies = {this.data.gradeFrequency}
+                          maxpts = {this.state.input.maxpts}
+                        />
                       </Col>
                     </Row>
                   </Container>
@@ -370,7 +368,32 @@ class App extends Component {
           </Container>
         </div>
         <Footer />
-      </BrowserRouter>
+        <NextSeo
+          title="Grade Scaler"
+          additionalLinkTags={[
+            {
+              rel: 'icon',
+              href: '/favicon.ico',
+            },
+            {
+              rel: 'apple-touch-icon',
+              href: '/logo192.png',
+            },
+            {
+              rel: 'manifest',
+              href: '/manifest.json'
+            }
+          ]}
+        />
+        {
+          !this.props.changeDescription ?
+          <NextSeo
+            description="The exam grading scheme calculator"
+          />
+          :
+          ""
+        }
+      </div>
     )
   }
 
@@ -458,9 +481,11 @@ class AddCustomAmazonProductCard extends React.Component {
                 <strong><small>Tell me your favorite</small></strong>
               </div>
               <InputGroup className="mb-1 p-0" size="sm">
-                <InputGroup.Text id="basic-addon1">ASIN</InputGroup.Text>
+                <InputGroup.Text id="basic-addon5">ASIN</InputGroup.Text>
                 <FormControl
                   placeholder="B07Q9MJKBV"
+                  aria-label="B07Q9MJKBV"
+                  aria-describedby="basic-addon5"
                   onChange={event => {
                     this.data.asin = event.target.value;
                   }}
@@ -477,7 +502,6 @@ class AddCustomAmazonProductCard extends React.Component {
         </div>
       )
     } else {
-      console.log(this.state.asin);
       return (
         <AmazonLinkCard
           key="newProd"
@@ -530,44 +554,28 @@ class GradeFreqBarChart extends React.Component {
     constructor(props) {
       super(props)
       this.gradeFreqBarChartRef = createRef();
+      this.changeOgImage = this.props.changeOgImage;
     }
     render() {
       this.data = {
         labels: this.props.labels,
         datasets: [
           {
-            // label: 'Grade Distribution',
+            label: 'Grade Distribution',
             data: this.props.data,
-            backgroundColor: [
-              '#0d6efd'
-            ],
-            borderColor: [
-              'rgba(0, 0, 0)',
-            ],
+            backgroundColor: 'blue',
+            borderColor: 'black',
             borderWidth: 1,
           },
         ],
       };
       this.options = {
         maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
         scales: {
           x: {
             display: true,
-            title: {
-              display: true,
-              text: 'Points',
-            }
           },
           y: {
-            title: {
-              display: true,
-              text: 'Grade',
-            },
             ticks: {
               beginAtZero: true,
             },
@@ -576,25 +584,28 @@ class GradeFreqBarChart extends React.Component {
         animation: false,
       };
       return (
+        <div>
+          {
+          this.changeOgImage ?
+          <NextSeo
+            openGraph={{
+              type: 'website',
+              images: [
+                {
+                  url: 'https://quickchart.io/chart?c=' + encodeURI(JSON.stringify({type: "bar", data: this.data, options: this.options})),
+                  width: 800,
+                  height: 600,
+                  alt: 'Og Image Alt',
+                }
+              ],
+            }}
+          />
+          :
+          ""
+          }
         <Bar ref={this.gradeFreqBarChartRef} data={this.data} options={this.options} />
-        // <div>
-        //   <canvas id="myChart"></canvas>
-        // </div>
+        </div>
       );
-    }
-    componentDidMount() {
-      // var myChart = new Chart(
-      //   document.getElementById('myChart'),
-      //   {
-      //     type: 'bar',
-      //     data: this.data,
-      //     options: this.options,
-      //   }
-      // );
-      // myChart.update();
-
-      // document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
-
     }
 }
 
@@ -635,6 +646,7 @@ class GradeRangesLineChart extends React.Component {
     const data = {
       datasets: [
         {
+          label: "Scheme Function",
           type: "line",
           data: plotData,
           stepped: true,
@@ -647,43 +659,25 @@ class GradeRangesLineChart extends React.Component {
           borderWidth: 1,
         },
         {
+          label: "Points",
           type: "scatter",
           data: scatterData,
-          // stepped: true,
           backgroundColor: [
             'red'
           ],
-          // borderColor: [
-          //   'rgba(0, 0, 0)',
-          // ],
-          // borderWidth: 1,
         },
       ],
     };
     const options = {
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
       scales: {
         x: {
           type: 'linear',
           position: 'bottom',
           display: true,
-          title: {
-            display: true,
-            text: 'Points',
-          },
         },
-        yAxes:
-          {
-            title: {
-              display: true,
-              text: 'Grades',
-            },
-            reverse: true,
-          },
+        yAxes: {
+          reverse: true,
+        },
       },
       animation: false,
     };
@@ -722,7 +716,7 @@ class Header extends Component {
   render() {
     return (
       <h1 className="fs-1 fw-bold border-bottom pb-2 text-center">
-        <img className="m-2" style={{ height: '40px' }} src="favicon.ico" alt="Logo" />
+        <img className="m-2" style={{ height: '40px' }} src="logo192.png" alt="Logo" />
         <span className="align-middle">Grade Scaler</span> <Badge bg="primary">v1</Badge>
       </h1>
     )
@@ -822,4 +816,40 @@ class DataTable extends Component {
   }
 }
 
-ReactDOM.render(<AppRouter />, document.getElementById('root'))
+class IndicatorTable extends Component {
+  render() {
+    const num = this.props.gradeFrequency.reduce((a, b) => a + b, 0);
+    const failrateperc = (100 * this.props.gradeFrequency[this.props.gradeFrequency.length - 1] / this.props.gradeFrequency.reduce((a, b) => a + b, 0)).toPrecision(3);
+    const passrateperc = (100 * this.props.gradeRanges[1] / this.props.maxpts).toPrecision(3);
+    return (
+      <div>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>👩‍👩‍👦‍👦 Num</th>
+              <th>📊 Average</th>
+              <th>❌ Failing Rate</th>
+              <th>🥳 Percentage to pass</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{num}</td>
+              <td>{this.props.average}</td>
+              <td>{failrateperc} %</td>
+              <td>{passrateperc} %</td>
+            </tr>
+          </tbody>
+        </Table>
+        {
+          this.props.changeDescription ?
+          <NextSeo
+            description={`💯:${this.props.maxpts} ⬆️:${this.props.roof} ⬇️:${this.props.base} 🔗: ${this.props.roundingMultiplier} 👩‍👩‍👦‍👦:${num} 📊:${this.props.average} ❌:${failrateperc}% 🥳:${passrateperc}%`}
+          />
+          :
+          ""
+        }
+      </div>
+    );
+  }
+}
