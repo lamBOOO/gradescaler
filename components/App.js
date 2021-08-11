@@ -436,25 +436,42 @@ export default class App extends Component {
 }
 
 class AmazonLinkCards extends React.Component {
-render() {
-    return (
-      <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
-        {
-          this.props.data.map(
-            (prod) =>
-              <AmazonLinkCard
-                key={prod.link}
-                link={prod.link}
-                imlink={prod.imlink}
-                title={prod.title}
-                bullets={prod.bullets}
-                includeFeedback={false}
-              />
-          )
-        }
-        <AddCustomAmazonProductCard />
-      </div>
-    )
+  constructor(props) {
+    super(props)
+    this.state = {
+      disabled: true
+    }
+  }
+  render() {
+    if (!this.state.disabled) {
+      return (
+        <div className="m-1 row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-2 g-3">
+          {
+            this.props.data.map(
+              (prod) =>
+                <AmazonLinkCard
+                  key={prod.link}
+                  link={prod.link}
+                  imlink={prod.imlink}
+                  title={prod.title}
+                  bullets={prod.bullets}
+                  includeFeedback={false}
+                />
+            )
+          }
+          <AddCustomAmazonProductCard />
+        </div>
+      )
+    } else {
+      return (
+        <Button
+          className="btn-sm" variant="outline-primary" target="_blank"
+          onClick={event => {
+            this.setState({disabled: false})
+          }}
+        >I agree that content from Amazon is displayed.</Button>
+      )
+    }
   }
 }
 
