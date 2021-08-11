@@ -469,7 +469,7 @@ class AmazonLinkCards extends React.Component {
           onClick={event => {
             this.setState({disabled: false})
           }}
-        >I agree that content from Amazon is displayed.</Button>
+        >I agree to the display of external content from Amazon.</Button>
       )
     }
   }
