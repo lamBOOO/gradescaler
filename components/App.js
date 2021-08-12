@@ -347,7 +347,7 @@ export default class App extends Component {
                   <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">📚 About</h2>
                   <Container className="">
                     <Row><Col>
-                      Grade Scaler calculates grading schemes with adaptive failing and passing rates and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme sometimes has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variables exam passing rate (<i>Base</i>) and a variable best grade rate (<i>Roof</i>).
+                      Grade Scaler calculates adaptive grading scales and presents graphical exam statistics. Since exams change from semester to semester, the grading scheme, sometimes, has to be adapted to account for, e.g., overly hard exam questions. Grade Scaler transforms a list of exam points into a corresponding grade mapping by applying a variable exam passing limit (<i>Base</i>) and a variable best grade limit (<i>Roof</i>).
                     </Col></Row>
                   </Container>
                 </div>
@@ -745,6 +745,7 @@ class Footer extends Component {
     return (
       <div className="p-3 text-center border-top">
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
+        <div className="">🔒 No data transmission, server, works offline</div>
         <LegalButton />
         <Button className="btn-sm p-0" variant="success" href="https://www.buymeacoffee.com/theisen">☕️ Buy me a coffee</Button>
       </div>
