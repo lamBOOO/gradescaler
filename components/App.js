@@ -351,14 +351,6 @@ export default class App extends Component {
                     </Col></Row>
                   </Container>
                 </div>
-                <div className="">
-                  <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🙏 Support / Feedback</h2>
-                  <Container className="">
-                    <Row><Col>
-                      Support me by clicking any of the teacher must-have products or <a href="https://www.buymeacoffee.com/theisen">buy me a coffee</a>! For feedback, just write me an e-mail. 🙂
-                    </Col></Row>
-                  </Container>
-                </div>
               </Col>
               <Col sm={12} md={12} lg={12} xl={4} xxl={3}>
                 <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">🧑‍🏫 Teacher's Must-Havs</h2>
@@ -464,12 +456,16 @@ class AmazonLinkCards extends React.Component {
       )
     } else {
       return (
-        <Button
-          className="btn-sm" variant="outline-primary" target="_blank"
-          onClick={event => {
-            this.setState({disabled: false})
-          }}
-        >I agree to the display of external content from Amazon.</Button>
+        <div className="row-cols-1 m-2">
+          <Button
+            className="" variant="outline-primary" target="_blank"
+            onClick={event => {
+              this.setState({disabled: false})
+            }}
+          >
+            I agree to the display of external content from Amazon.
+          </Button>
+        </div>
       )
     }
   }
@@ -743,9 +739,9 @@ class Header extends Component {
 class Footer extends Component {
   render() {
     return (
-      <div className="p-3 text-center border-top">
+      <div className="m-3 p-2 text-center border-top">
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
-        <div className="">🔒 No data transmission, server, works offline</div>
+        <div className="">🔒 No data transmission, no server, works offline</div>
         <LegalButton />
         <Button className="btn-sm p-0" variant="success" href="https://www.buymeacoffee.com/theisen">☕️ Buy me a coffee</Button>
       </div>
