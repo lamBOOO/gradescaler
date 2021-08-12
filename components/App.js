@@ -273,7 +273,7 @@ export default class App extends Component {
                         </InputGroup>
                         <div className="text-center">
                           <Button className="btn-sm m-1" variant="danger" onClick={() => { if (typeof window !== "undefined"){window.location.href = "/" }}}>
-                            ☢️ Reset
+                            <small>☢️ Reset</small>
                           </Button>
                           <CopyButtonWithOverlay copyUrl={(typeof window !== "undefined") ? window.location.protocol + "//" + window.location.host + '/' + JSON.stringify(this.state.input) : ''} />
                         </div>
@@ -712,7 +712,7 @@ function CopyButtonWithOverlay(props) {
         setTimeout(() => { setShow(false); }, 2000);
       }
       }>
-        ✉️ Copy link
+        <small>✉️ Share </small>
       </Button>
       <Overlay target={target.current} show={show} placement="top">
         {(props) => (
