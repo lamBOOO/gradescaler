@@ -742,9 +742,12 @@ class Footer extends Component {
       <div className="m-3 p-2 text-center border-top">
         <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
         <div className="">🔒 No data transmission, no server, works offline</div>
-        <LegalButton />
-        <Button className="btn-sm p-0" variant="success" href="https://www.buymeacoffee.com/theisen">☕️ Buy me a coffee</Button>
-      </div>
+          <div className="text-center">
+            <LegalButton />
+            <Button className="btn-sm m-1" variant="info" href="https://github.com/lamBOOO/gradescaler">🧑‍💻 Github</Button>
+            <Button className="btn-sm m-1" variant="success" href="https://www.buymeacoffee.com/theisen">☕️ Buy me a coffee</Button>
+          </div>
+        </div>
     )
   }
 }
@@ -760,8 +763,8 @@ function LegalButton() {
   };
 
   return (
-    <div ref={ref}>
-      <Button className="btn-sm p-0" onClick={handleClick}>
+    <span ref={ref}>
+      <Button className="btn-sm m-1" onClick={handleClick}>
         🧑‍⚖️ Legal info / Impressum
       </Button>
       <Overlay
@@ -788,7 +791,7 @@ function LegalButton() {
           </Popover.Body>
         </Popover>
       </Overlay>
-    </div>
+    </span>
   );
 }
 
