@@ -783,7 +783,8 @@ function LegalButton() {
               Impressum
             </strong>
             <br></br>
-            Lambert Theisen<br></br>
+            Lambert Theisen Digital Solutions<br></br>
+            <a href="http://lambert-theisen.de">www.lambert-theisen.de</a><br></br>
             Hochbrück 4<br></br>
             D-52070 Aachen<br></br>
             Germany<br></br>
