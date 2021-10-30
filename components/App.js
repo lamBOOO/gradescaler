@@ -67,6 +67,22 @@ const AmazonAffiliateData = [
       "handy backlight for bed",
     ]
   },
+  {
+    link: "https://www.amazon.de/Rodcraft-8951000388-Rangierwagenheber-5T-RH216-Nachfolgemodell/dp/B08QRX6SVQ?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3QW6UMW0L8N2J&dchild=1&keywords=wagenheber&qid=1635594929&qsid=257-5642188-9022725&refinements=p_76%3A419122031&rnid=419121031&rps=1&sprefix=wagenhebe%2Caps%2C102&sr=8-8&sres=B002B552F0%2CB00FC2UVRS%2CB075DCMVZK%2CB08QRX6SVQ%2CB0086Q7K9O%2CB001B44QPE%2CB093DBVG5Y%2CB00VV047C0%2CB07H8Y6PDS%2CB07Y3VJ857%2CB07FPC7YP3%2CB086QHCK9P%2CB07P2WTKXF%2CB01N8RK8AA%2CB000XQ82YW%2CB08N6KBFYG%2CB0018ZB8RK%2CB078HHPJNQ%2CB093DDZ6QT%2CB01J1QGN54&srpt=UTILITY_JACK&linkCode=li2&tag=gradescaler-21&linkId=bc3057b131db037c62a46c441c401f63&language=de_DE&ref_=as_li_ss_il",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B08QRX6SVQ&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "Rodcraft Rangierwagenheber",
+    bullets: [
+      "For for all cars",
+    ]
+  },
+  {
+    link: "https://www.amazon.de/Steckschl%C3%BCsseleinsatz-Vierkantantrieb-Kunststoffh%C3%BClse-Schutz-Schl%C3%BCsselweite/dp/B001C9X03M?dchild=1&keywords=schlagschrauber+17+nuss&qid=1635594744&qsid=257-5642188-9022725&sprefix=schlagschrauber+17%2Caps%2C127&sr=8-16&sres=B000VR7VMC%2CB01FFMN0O0%2CB09FP8PKD1%2CB082WSF9W6%2CB0037J4PQ6%2CB07CN5HM43%2CB071XBXDBL%2CB0024EG66C%2CB01M5H2YZK%2CB07Q3S2T8V%2CB01KG2E3NQ%2CB001C9X03M%2CB01FFFXWBI%2CB01N3C1DC2%2CB07CNDVSKQ%2CB085CS676B&srpt=FASTENER_DRIVE_BIT&linkCode=li2&tag=gradescaler-21&linkId=a627eefb86e589283133e2da6206beae&language=de_DE&ref_=as_li_ss_il",
+    imlink: "//ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B001C9X03M&Format=_SL160_&ID=AsinImage&MarketPlace=DE&ServiceVersion=20070822&WS=1&tag=gradescaler-21&language=de_DE",
+    title: "HAZET Nuss (1/2 Zoll (12,5 mm)",
+    bullets: [
+      "Must have to change tires",
+    ]
+  },
 ]
 
 export default class App extends Component {
