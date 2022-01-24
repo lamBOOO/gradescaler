@@ -756,7 +756,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="m-3 p-2 text-center border-top">
-        <div className="">🇩🇪 Made in Germany by Lambert Theisen</div>
+        <div className="">🇩🇪 Made in Germany</div>
         <div className="">🔒 No data transmission, no server, works offline</div>
           <div className="text-center">
             <LegalButton />
@@ -801,9 +801,6 @@ function LegalButton() {
             <br></br>
             Lambert Theisen Digital Solutions<br></br>
             <a href="http://lambert-theisen.de">www.lambert-theisen.de</a><br></br>
-            Hochbrück 4<br></br>
-            D-52070 Aachen<br></br>
-            Germany<br></br>
             poldi.icq(at)arcor.de<br></br>
           </Popover.Body>
         </Popover>
