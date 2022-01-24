@@ -323,6 +323,17 @@ export default class App extends Component {
                   <Container fluid>
                     <Row>
                       <Col md={6}>
+                        <h3 className="fs-6 text-center">Indicators</h3>
+                        <IndicatorTable
+                          gradeFrequency = {this.data.gradeFrequency}
+                          average = {this.data.average}
+                          gradeRanges = {this.data.gradeRanges}
+                          maxpts = {this.state.input.maxpts}
+                          roof = {this.state.input.roof}
+                          base = {this.state.input.base}
+                          roundingMultiplier = {this.state.input.roundingMultiplier}
+                          changeDescription = {this.props.changeDescription}
+                        />
                         <h3 className="fs-6 text-center">Graphical data</h3>
                         <GradeFreqBarChart
                           changeOgImage = {this.data.changeOgImage}
@@ -337,17 +348,6 @@ export default class App extends Component {
                         />
                       </Col>
                       <Col md = {6}>
-                        <h3 className="fs-6 text-center">Indicators</h3>
-                        <IndicatorTable
-                          gradeFrequency = {this.data.gradeFrequency}
-                          average = {this.data.average}
-                          gradeRanges = {this.data.gradeRanges}
-                          maxpts = {this.state.input.maxpts}
-                          roof = {this.state.input.roof}
-                          base = {this.state.input.base}
-                          roundingMultiplier = {this.state.input.roundingMultiplier}
-                          changeDescription = {this.props.changeDescription}
-                        />
                         <h3 className="fs-6 text-center">Tabular data</h3>
                         <DataTable
                           gradeScheme = {this.data.gradeScheme}
