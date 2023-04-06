@@ -1,4 +1,3 @@
 # https://www.robotstxt.org/robotstxt.html
-User-Agent: *
-Host: https://thsn.dev
-Sitemap: https://thsn.dev/sitemap.xml
+User-agent: *
+Disallow:
