@@ -195,7 +195,7 @@ export default class App extends Component {
                   <h2 className="rounded border shadow-sm fs-4 fw-bold m-2 text-center">⚙️ Settings & Input</h2>
                   <Container className="m-0 p-2">
                     <Row>
-                      <Col>
+                      <Col xs={12} md={4}>
                         <InputGroup className="mb-1 p-0">
                           <InputGroup.Text id="basic-addon1">💯 Max.</InputGroup.Text>
                           <FormControl
@@ -275,7 +275,7 @@ export default class App extends Component {
                           />
                         </InputGroup>
                       </Col>
-                      <Col>
+                      <Col xs={12} md={4}>
                         <InputGroup className="">
                           <InputGroup.Text>Input</InputGroup.Text>
                           <FormControl
@@ -293,6 +293,20 @@ export default class App extends Component {
                           </Button>
                           <CopyButtonWithOverlay copyUrl={(typeof window !== "undefined") ? window.location.protocol + "//" + window.location.host + '/' + JSON.stringify(this.state.input) : ''} />
                         </div>
+                      </Col>
+                      <Col xs={12} md={4}>
+                        <InputGroup className="">
+                          <InputGroup.Text>Sorted</InputGroup.Text>
+                          <FormControl
+                            as="textarea"
+                            style={{ height: '175px' }}
+                            value={[...this.state.input.points]
+                              .sort((a, b) => parseFloat(a) - parseFloat(b))
+                              .join(" ")}
+                            aria-label="Points sorted in ascending order"
+                            readOnly
+                          />
+                        </InputGroup>
                       </Col>
                     </Row>
                   </Container>
