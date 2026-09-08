@@ -10,5 +10,6 @@ Grade Scaler calculates adaptive grading scales and presents graphical exam stat
 ## Usage
 
 ```
+npm install  # Installs dependencies
 npm run dev
 ```
