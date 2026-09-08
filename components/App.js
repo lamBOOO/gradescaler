@@ -440,9 +440,9 @@ export default class App extends Component {
   }
 
   handlePointsInput(inputString) {
-    inputString = inputString.replaceAll(',', '.')
-    const pts = inputString.split(/\s+/)
-    if (pts.some(isNaN)) {
+    const normalizedInput = inputString.replaceAll(',', '.').trim()
+    const pts = normalizedInput === '' ? [] : normalizedInput.split(/\s+/)
+    if (pts.length === 0 || pts.some(isNaN)) {
       this.setState({ data: { ...this.state.data, showerror: true } })
     } else {
       this.setState({ data: { ...this.state.data, showerror: false } })
